@@ -2,35 +2,17 @@
   "name": "jortenci-superset",
   "version": "0.1.0",
   "author": "Jason Ortencio",
-  "summary": "",
+  "summary": "Module for managing the installation and configuration of Apache Superset",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/jortencio/superset/tree/feature_1-basic-installation-of-superset",
   "dependencies": [
 
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
       ]
     }
   ],
