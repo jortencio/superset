@@ -14,7 +14,7 @@ class superset::python {
     version        => lookup('superset::python_version', String),
     pip            => 'present',
     dev            => 'present',
-    gunicorn       => 'present',
+    gunicorn       => 'absent',
     python_pips    => $python_pips,
     python_pyvenvs => $python_venvs,
   }
