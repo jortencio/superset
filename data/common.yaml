@@ -1,1 +1,6 @@
 ---
+superset::pip_packages:
+  - apache-superset
+
+superset::user: 'superset'
+superset::venv_path: '/var/www/apache-superset'
