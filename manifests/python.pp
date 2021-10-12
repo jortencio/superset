@@ -18,4 +18,10 @@ class superset::python {
 #    python_pips    => $python_pips,
 #    python_pyvenvs => $python_venvs,
   }
+
+  $package_uninstall = ['python3-wheel','python3-pip','python3-devel']
+
+  package { $package_uninstall:
+    ensure => 'absent',
+  }
 }
