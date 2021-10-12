@@ -10,6 +10,6 @@ class superset::python {
     version  => lookup(superset::python_version),
     pip      => 'present',
     dev      => 'present',
-    gunicorn => 'present'
+    gunicorn => 'absent'
   }
 }
