@@ -19,7 +19,7 @@ class superset::python {
 #    python_pyvenvs => $python_venvs,
 #  }
 
-  $package_uninstall = ['python3-wheel','python3-pip','python3-devel']
+  $package_uninstall = ['python36-3.6.8-2.module+el8.1.0+3334+5cb623d7.x86_64','python3-wheel','python3-pip','python3-devel']
 
   package { $package_uninstall:
     ensure => 'absent',
