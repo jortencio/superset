@@ -3,8 +3,14 @@ superset::package_dependencies:
   - 'gcc'
   - 'gcc-c++'
   - 'libffi-devel'
-  - 'python3-devel'
-  - 'python3-wheel'
   - 'openssl-devel'
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
+
+superset::python_version: 'python3'
+python::python_pyvenvs:
+  "/var/www/apache-superset":
+    version: "python3"
+python::python_pips:
+  "apache-superset":
+    virtualenv: "/var/www/apache-superset"

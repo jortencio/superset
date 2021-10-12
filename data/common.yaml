@@ -4,6 +4,7 @@ superset::pip_packages:
 
 superset::user: 'superset'
 
+superset::python_version: 'system'
 python::python_pyvenvs:
   "/var/www/apache-superset":
     version: "system"

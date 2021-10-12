@@ -7,7 +7,7 @@
 class superset::python {
   class { 'python' :
     ensure   => 'present',
-    version  => 'system',
+    version  => lookup(superset::python_version),
     pip      => 'present',
     dev      => 'present',
     gunicorn => 'present'
