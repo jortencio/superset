@@ -13,7 +13,7 @@ superset::virtual_env_dir: "/var/www/apache-superset"
 
 superset::python_pyvenvs:
   "/var/www/apache-superset":
-    version: "python39"
+    version: "3.9"
 
 superset::python_pips:
   "apache-superset":
