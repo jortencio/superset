@@ -5,7 +5,9 @@ superset::pip_packages:
 superset::user: 'superset'
 
 superset::python_version: 'system'
-superset::virtual_env: "/var/www/apache-superset"
+superset::virtual_env_dir:
+  - "/var/www/"
+  - "/var/www/apache-superset"
 
 python::python_pyvenvs:
   "/var/www/apache-superset":

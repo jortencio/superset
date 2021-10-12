@@ -6,14 +6,13 @@
 #   include superset::python
 class superset::python {
 
-  $superset_dir=lookup('superset::virtual_env', String)
+  $superset_dir=lookup('superset::virtual_env_dir', Array)
 
   file { $superset_dir:
-    ensure  => directory,
-    recurse => true,
-    owner   => lookup(superset::user, String),
-    group   => lookup(superset::user, String),
-    mode    => '0644'
+    ensure => directory,
+    owner  => lookup(superset::user, String),
+    group  => lookup(superset::user, String),
+    mode   => '0644'
   }
 
   class { 'python' :

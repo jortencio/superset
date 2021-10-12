@@ -9,7 +9,9 @@ superset::package_dependencies:
   - 'openldap-devel'
 
 superset::python_version: 'python3'
-superset::virtual_env: "/var/www/apache-superset"
+superset::virtual_env_dir:
+  - "/var/www/"
+  - "/var/www/apache-superset"
 
 python::python_pyvenvs:
   "/var/www/apache-superset":
