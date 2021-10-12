@@ -12,7 +12,6 @@ class superset::python {
   class { 'python' :
     ensure         => 'present',
     version        => lookup('superset::python_version', String),
-    provider       => lookup('superset::python_provider', String),
     pip            => 'present',
     dev            => 'present',
     gunicorn       => 'absent',
