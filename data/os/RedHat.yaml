@@ -8,7 +8,8 @@ superset::package_dependencies:
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
 
-superset::python_version: '3.8'
+superset::python_version: 'rh-python38'
+superset::python_provider: 'rhscl'
 superset::virtual_env_dir: "/var/www/apache-superset"
 
 superset::python_pyvenvs:
