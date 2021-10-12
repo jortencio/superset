@@ -9,19 +9,13 @@ class superset::python {
   $python_pips = lookup('superset::python_pips')
   $python_venvs = lookup('superset::python_pyvenvs')
 
-#  class { 'python' :
-#    ensure   => 'absent',
-#    version  => lookup('superset::python_version', String),
-#    pip      => 'absent',
-#    dev      => 'absent',
-#    gunicorn => 'absent',
-#    python_pips    => $python_pips,
-#    python_pyvenvs => $python_venvs,
-#  }
-
-  $package_uninstall = ['python36-3.6.8-2.module+el8.1.0+3334+5cb623d7.x86_64','python3-wheel','python3-pip','python3-devel']
-
-  package { $package_uninstall:
-    ensure => 'absent',
+  class { 'python' :
+    ensure         => 'present',
+    version        => lookup('superset::python_version', String),
+    pip            => 'present',
+    dev            => 'present',
+    gunicorn       => 'present',
+    python_pips    => $python_pips,
+    python_pyvenvs => $python_venvs,
   }
 }
