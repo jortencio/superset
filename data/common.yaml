@@ -3,4 +3,10 @@ superset::pip_packages:
   - apache-superset
 
 superset::user: 'superset'
-superset::venv_path: '/var/www/apache-superset'
+
+python::python_pyvenvs:
+  "/var/www/apache-superset":
+    version: "system"
+python::python_pips:
+  "apache-superset":
+    virtualenv: "/var/www/apache-superset"
