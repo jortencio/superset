@@ -10,12 +10,12 @@ class superset::python {
   $python_venvs = lookup('superset::python_pyvenvs')
 
   class { 'python' :
-    ensure         => 'absent',
-    version        => lookup('superset::python_version', String),
-    pip            => 'present',
-    dev            => 'present',
-    gunicorn       => 'absent',
-    python_pips    => $python_pips,
-    python_pyvenvs => $python_venvs,
+    ensure   => 'absent',
+    version  => lookup('superset::python_version', String),
+    pip      => 'absent',
+    dev      => 'absent',
+    gunicorn => 'absent',
+#    python_pips    => $python_pips,
+#    python_pyvenvs => $python_venvs,
   }
 }
