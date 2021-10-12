@@ -6,21 +6,16 @@
 #   include superset::python
 class superset::python {
 
-  $superset_dir=lookup('superset::virtual_env_dir', Array)
-
-  file { $superset_dir:
-    ensure => directory,
-    owner  => lookup(superset::user, String),
-    group  => lookup(superset::user, String),
-    mode   => '0644'
-  }
+  $python_pips = lookup('superset::python_pips')
+  $python_venvs = lookup('superset::python_pyvenvs')
 
   class { 'python' :
-    ensure   => 'present',
-    version  => lookup(superset::python_version),
-    pip      => 'present',
-    dev      => 'present',
-    gunicorn => 'absent',
-    require  => File[$superset_dir]
+    ensure         => 'present',
+    version        => lookup('superset::python_version', String),
+    pip            => 'present',
+    dev            => 'present',
+    gunicorn       => 'absent',
+    python_pips    => $python_pips,
+    python_pyvenvs => $python_venvs,
   }
 }

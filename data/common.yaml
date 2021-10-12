@@ -9,9 +9,10 @@ superset::virtual_env_dir:
   - "/var/www/"
   - "/var/www/apache-superset"
 
-python::python_pyvenvs:
+superset::python_pyvenvs:
   "/var/www/apache-superset":
     version: "system"
-python::python_pips:
+
+superset::python_pips:
   "apache-superset":
     virtualenv: "/var/www/apache-superset"
