@@ -3,6 +3,7 @@ superset::package_dependencies:
   - 'gcc'
   - 'gcc-c++'
   - 'libffi-devel'
+  - 'python3-wheel'
   - 'openssl-devel'
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
