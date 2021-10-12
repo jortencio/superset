@@ -4,14 +4,12 @@ superset::pip_packages:
 
 superset::user: 'superset'
 
-superset::python_version: '3.6.8'
-superset::virtual_env_dir:
-  - "/var/www/"
-  - "/var/www/apache-superset"
+superset::python_version: '3.7'
+superset::virtual_env_dir: "/var/www/apache-superset"
 
 superset::python_pyvenvs:
   "/var/www/apache-superset":
-    version: "3.6.8"
+    version: "3.7"
 
 superset::python_pips:
   "apache-superset":
