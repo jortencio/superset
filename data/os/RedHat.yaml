@@ -18,3 +18,7 @@ superset::python_pyvenvs:
 superset::python_pips:
   "apache-superset":
     virtualenv: "/var/www/apache-superset"
+  "gunicorn":
+    virtualenv: "/var/www/apache-superset"
+  "gevent":
+    virtualenv: "/var/www/apache-superset"

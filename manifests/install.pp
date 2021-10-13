@@ -13,13 +13,19 @@ class superset::install {
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
-    command => ". ${venv_dir}/bin/activate; superset db upgrade",
-    creates => '/root/.superset/superset.db'
+    command  => 'superset db upgrade',
+    creates  => '/root/.superset/superset.db',
+    path     => $venv_dir,
+    provider => 'shell',
+    require  => Class['superset::python']
   }
 
   # Add parameters here
   exec { 'Create Admin User':
-    command => ". ${venv_dir}/bin/activate; superset fab create-admin --username admin --firstname admin --lastname --admin --password password --email jason.ortencio@puppet.com",
-    unless  => ". ${venv_dir}/bin/activate; superset fab list-users | grep admin"
+    command  => 'superset fab create-admin --username admin --firstname admin --lastname --admin --password password --email jason.ortencio@puppet.com',
+    unless   => 'superset fab list-users | grep admin',
+    path     => $venv_dir,
+    provider => 'shell',
+    require  => [Class['superset::python'],Exec['Initialize DB']]
   }
 }
