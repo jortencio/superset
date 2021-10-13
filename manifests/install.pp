@@ -21,6 +21,15 @@ class superset::install {
     require  => Class['superset::python']
   }
 
+  exec {'Load Examples':
+    command  => 'superset load_examples && touch .superset_examples_loaded',
+    creates  => "${venv_dir}/.superset_examples_loaded",
+    cwd      => $venv_dir,
+    path     => ["${venv_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    provider => 'shell',
+    require  => [Class['superset::python'],Exec['Initialize DB']],
+  }
+
   # Add parameters here
   exec { 'Create Admin User':
     command  => 'superset fab create-admin --username admin --firstname admin --lastname --admin --password password --email jason.ortencio@puppet.com',
@@ -29,5 +38,14 @@ class superset::install {
     path     => ["${venv_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     require  => [Class['superset::python'],Exec['Initialize DB']],
     provider => 'shell'
+  }
+
+  exec {'Initialize default roles and permissions':
+    command  => 'superset init && touch .superset_init',
+    creates  => "${venv_dir}/.superset_init",
+    cwd      => $venv_dir,
+    path     => ["${venv_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    provider => 'shell',
+    require  => [Class['superset::python'],Exec['Initialize DB']],
   }
 }
