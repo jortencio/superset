@@ -22,4 +22,8 @@ class superset {
   include superset::packages
 
   include superset::install
+
+  include superset::service
+
+  Class['superset::packages'] -> Class['superset::install'] -> Class['superset::service']
 }
