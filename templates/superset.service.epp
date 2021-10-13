@@ -1,0 +1,17 @@
+<%- | 
+| -%>
+[Unit]
+Description="Apache Superset"
+After=network.target
+
+[Service]
+User=superset
+Group=superset
+Environment=PYTHONPATH=$PYTHONPATH:/var/www/apache-superset
+Environment=FLASK_APP=superset
+ExecStart=/var/www/apache-superset/bin/gunicorn -w 10 -k gevent --timeout 120 -b  0.0.0.0:8081 --limit-request-line 0 --limit-request-field_size 0 --statsd-host localhost:8125 "superset.app:create_app()"
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
