@@ -13,7 +13,7 @@ class superset::install {
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
-    command  => 'superset db upgrade',
+    command  => 'superset db upgrade && superset load_examples && superset init',
     creates  => '/root/.superset/superset.db',
     cwd      => $venv_dir,
     path     => ["${venv_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
