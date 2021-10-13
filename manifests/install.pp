@@ -30,15 +30,4 @@ class superset::install {
     require  => [Class['superset::python'],Exec['Initialize DB']],
     provider => 'shell'
   }
-
-  file { '/usr/lib/systemd/system/superset.service':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => epp('superset/superset.service.epp'),
-  }
-  ~> service {'superset':
-    ensure => 'running',
-  }
 }
