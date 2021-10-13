@@ -7,11 +7,11 @@
 class superset::service {
 
   file { '/bin/superset.gunicorn':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/superset/superset.gunicorn',
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => file('superset/superset.gunicorn'),
   }
 
   file { '/usr/lib/systemd/system/superset.service':
