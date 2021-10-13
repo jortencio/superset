@@ -15,6 +15,7 @@ class superset::install {
   exec {'Initialize DB':
     command  => 'superset db upgrade',
     creates  => '/root/.superset/superset.db',
+    cwd      => "${venv_dir}/bin",
     path     => "${venv_dir}/bin",
     provider => 'shell',
     require  => Class['superset::python']
@@ -24,6 +25,7 @@ class superset::install {
   exec { 'Create Admin User':
     command  => 'superset fab create-admin --username admin --firstname admin --lastname --admin --password password --email jason.ortencio@puppet.com',
     unless   => 'superset fab list-users | grep admin',
+    cwd      => "${venv_dir}/bin",
     path     => "${venv_dir}/bin",
     provider => 'shell',
     require  => [Class['superset::python'],Exec['Initialize DB']]
