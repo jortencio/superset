@@ -27,7 +27,6 @@ class superset::service {
   service {'superset':
     ensure    => 'running',
     subscribe => [File['/bin/superset.gunicorn'],
-                  File['/usr/lib/systemd/system/superset.service'],
-                  File["${superset::virtual_env_dir}/superset_config.py"]]
+                  File['/usr/lib/systemd/system/superset.service']]
   }
 }
