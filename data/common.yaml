@@ -1,11 +1,20 @@
 ---
+
+superset::virtual_env_dir: "/var/www/apache-superset"
+superset::manage_python: true
+superset::load_examples: true
+
+
+
+
+
+
 superset::pip_packages:
   - apache-superset
 
 superset::user: 'superset'
 
 superset::python_version: '3.8'
-superset::virtual_env_dir: "/var/www/apache-superset"
 
 superset::python_pyvenvs:
   "/var/www/apache-superset":

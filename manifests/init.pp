@@ -4,7 +4,11 @@
 #
 # @example
 #   include superset
-class superset {
+class superset (
+  String  $virtual_env_dir,
+  Boolean $manage_python,
+  Boolean $load_examples,
+) {
 
   $superset_user = lookup('superset::user', String)
 
@@ -21,9 +25,14 @@ class superset {
   #Install package dependencies 
   include superset::packages
 
+  #Configure Python
+  include superset::python
+
+  include superset::config
+
   include superset::install
 
   include superset::service
 
-  Class['superset::packages'] -> Class['superset::install'] -> Class['superset::service']
+  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::config'] -> Class['superset::install'] -> Class['superset::service']
 }
