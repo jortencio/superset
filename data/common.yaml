@@ -23,3 +23,10 @@ superset::python_pyvenvs:
 superset::python_pips:
   "apache-superset":
     virtualenv: "/var/www/apache-superset"
+
+superset::admin_config:
+  username: 'admin'
+  password: 'password'
+  firstname: admin
+  lastname: admin
+  email: admin@mycompany.com

@@ -13,7 +13,7 @@ class superset::install {
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
-    require  => [Class['superset::python'],Python::Pip['apache-superset']]
+    require  => [Python::Pip['apache-superset']]
   }
 
   if $superset::load_examples {
@@ -23,18 +23,20 @@ class superset::install {
       cwd      => $superset::virtual_env_dir,
       path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
       provider => 'shell',
-      require  => [Class['superset::python'],Exec['Initialize DB']],
+      require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
     }
   }
 
 
+  $admin_hash = $superset::admin_config
+
   # Add parameters here
   exec { 'Create Admin User':
-    command  => 'superset fab create-admin --username admin --firstname admin --lastname --admin --password password --email jason.ortencio@puppet.com',
+    command  => "superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]}",
     unless   => 'superset fab list-users | grep admin',
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
-    require  => [Class['superset::python'],Exec['Initialize DB']],
+    require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
     provider => 'shell'
   }
 
@@ -44,6 +46,6 @@ class superset::install {
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
-    require  => [Class['superset::python'],Exec['Initialize DB']],
+    require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
   }
 }

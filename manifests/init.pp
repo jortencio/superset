@@ -8,7 +8,8 @@ class superset (
   String  $virtual_env_dir,
   Boolean $manage_python,
   Boolean $load_examples,
-  String  $user
+  String  $user,
+  Hash    $admin_config
 ) {
 
   group { $user :
