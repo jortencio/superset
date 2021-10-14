@@ -6,12 +6,14 @@
 #   include superset::service
 class superset::service {
 
+  $gunicorn_app_hash = $superset::config
+
   file { '/bin/superset.gunicorn':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => file('superset/superset.gunicorn'),
+    content => epp('superset/superset.gunicorn.epp',$superset::gunicorn_config),
   }
 
   file { '/usr/lib/systemd/system/superset.service':

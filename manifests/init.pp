@@ -7,10 +7,12 @@
 class superset (
   String $virtual_env_dir,
   Boolean $manage_python,
+  Boolean $manage_webserver,
   Boolean $load_examples,
   String $user,
-  Hash $admin_config,
-  Optional[Hash] $config = undef
+  Optional[Hash] $admin_config,
+  Optional[Hash] $config = undef,
+  Optional[Hash] $gunicorn_config,
 ) {
 
   group { $user :
