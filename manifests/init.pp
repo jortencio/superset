@@ -8,17 +8,16 @@ class superset (
   String  $virtual_env_dir,
   Boolean $manage_python,
   Boolean $load_examples,
+  String  $user
 ) {
 
-  $superset_user = lookup('superset::user', String)
-
-  group { $superset_user :
+  group { $user :
     ensure => present
   }
 
-  user { $superset_user:
+  user { $user:
     ensure     => present,
-    gid        => $superset_user,
+    gid        => $user,
     managehome => true
   }
 

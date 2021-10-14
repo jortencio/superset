@@ -10,6 +10,14 @@ class superset::python {
     $python_pips = lookup('superset::python_pips')
     $python_venvs = lookup('superset::python_pyvenvs')
 
+
+    file { '/var/www':
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755'
+    }
+
     class { 'python' :
       ensure                => 'present',
       version               => lookup('superset::python_version', String),
