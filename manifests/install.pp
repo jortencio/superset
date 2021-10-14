@@ -6,10 +6,6 @@
 #   include superset::install
 class superset::install {
 
-  notify { 'test':
-    message => $superset::virtual_env_dir
-  }
-
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
     command  => 'superset db upgrade',
@@ -17,7 +13,7 @@ class superset::install {
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
-    require  => Class['superset::python']
+    require  => [Class['superset::python'],File[$superset::virtual_env_dir]]
   }
 
   if $superset::load_examples {
