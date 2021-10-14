@@ -33,7 +33,7 @@ class superset::install {
   # Add parameters here
   exec { 'Create Admin User':
     command  => "superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]}",
-    unless   => 'superset fab list-users | grep admin',
+    unless   => "superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
