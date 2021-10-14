@@ -12,7 +12,7 @@ class superset (
   String $user,
   Optional[Hash] $admin_config,
   Optional[Hash] $config = undef,
-  Optional[Hash] $gunicorn_config,
+  Optional[Hash] $gunicorn_config = lookup('superset::gunicorn_config',Hash,'hash'),
 ) {
 
   group { $user :
