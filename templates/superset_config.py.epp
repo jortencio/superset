@@ -1,0 +1,62 @@
+<%- | 
+  Integer $row_limit = undef,
+  Integer $superset_webserver_port = undef,
+  String  $secret_key = undef, #TODO: Change to sensitive?
+  String  $sqlalchemy_database_uri = undef,
+  Boolean $wtf_csrf_enabled = undef,
+  Array[String] $wtf_csrf_exempt_list = undef,
+  Integer $wtf_csrf_time_limit = undef,
+  String $mapbox_api_key = undef
+| -%>
+# Superset specific config
+# ROW_LIMIT = 5000
+<% if $row_limit { -%>
+ROW_LIMIT = <%= $row_limit -%>
+<% } -%>
+
+# SUPERSET_WEBSERVER_PORT = 8088
+<% if $superset_webserver_port { -%>
+SUPERSET_WEBSERVER_PORT = <%= $superset_webserver_port -%>
+<% } -%>
+
+# Flask App Builder configuration
+# Your App secret key
+# SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
+<% if $secret_key { -%>
+SECRET_KEY = <%= $secret_key %>
+<% } %> 
+
+# The SQLAlchemy connection string to your database backend
+# This connection defines the path to the database that stores your
+# superset metadata (slices, connections, tables, dashboards, ...).
+# Note that the connection information to connect to the datasources
+# you want to explore are managed directly in the web UI
+# SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
+<% if $sqlalchemy_database_uri { -%>
+SQLALCHEMY_DATABASE_URI = <%= $sqlalchemy_database_uri %>
+<% } %> 
+
+# Flask-WTF flag for CSRF
+# WTF_CSRF_ENABLED = True
+<% if $wtf_csrf_enabled { -%>
+WTF_CSRF_ENABLED = <%= $wtf_csrf_enabled %>
+<% } %>
+
+# Add endpoints that need to be exempt from CSRF protection
+# WTF_CSRF_EXEMPT_LIST = []
+<% if $wtf_csrf_exempt_list { -%>
+WTF_CSRF_EXEMPT_LIST = <%= $wtf_csrf_exempt_list -%>
+<% } -%>
+
+# A CSRF token that expires in 1 year
+# WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
+<% if $wtf_csrf_time_limit { -%>
+WTF_CSRF_TIME_LIMIT = <%= $wtf_csrf_time_limit -%>
+<% } -%>
+
+# Set this API key to enable Mapbox visualizations
+# MAPBOX_API_KEY = ''
+<% if $mapbox_api_key { -%>
+MAPBOX_API_KEY = <%= $mapbox_api_key -%>
+<% } -%>
+

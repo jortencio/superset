@@ -5,11 +5,13 @@
 # @example
 #   include superset::config
 class superset::config {
-
-  file { "${superset::virtual_env_dir}/superset_config.py":
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+  if $superset::config {
+    file { "${superset::virtual_env_dir}/superset_config.py":
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => epp('superset/superset_config.py.epp',$superset::config)
+    }
   }
 }

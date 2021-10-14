@@ -5,11 +5,12 @@
 # @example
 #   include superset
 class superset (
-  String  $virtual_env_dir,
+  String $virtual_env_dir,
   Boolean $manage_python,
   Boolean $load_examples,
-  String  $user,
-  Hash    $admin_config
+  String $user,
+  Hash $admin_config,
+  Optional[Hash] $config = undef
 ) {
 
   group { $user :

@@ -4,11 +4,6 @@ superset::virtual_env_dir: "/var/www/apache-superset"
 superset::manage_python: true
 superset::load_examples: false
 
-
-
-
-
-
 superset::pip_packages:
   - apache-superset
 
