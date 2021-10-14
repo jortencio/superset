@@ -23,7 +23,11 @@ class superset::service {
     mode    => '0644',
     content => epp('superset/superset.service.epp'),
   }
-  ~> service {'superset':
-    ensure => 'running',
+
+  service {'superset':
+    ensure    => 'running',
+    subscribe => [File['/bin/superset.gunicorn'],
+                  File['/usr/lib/systemd/system/superset.service'],
+                  File["${superset::virtual_env_dir}/superset_config.py"]]
   }
 }
