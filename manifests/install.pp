@@ -13,7 +13,7 @@ class superset::install {
     cwd      => $superset::virtual_env_dir,
     path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
-    require  => [Class['superset::python'],File[$superset::virtual_env_dir]]
+    require  => [Class['superset::python'],Python::Pip['apache-superset']]
   }
 
   if $superset::load_examples {
