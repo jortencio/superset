@@ -11,7 +11,7 @@ superset::user: 'superset'
 
 superset::python_version: 'python39'
 
-superset::virtual_env_dir: "/var/www/apache-superset"
+superset::virtual_env_dir: "/home/superset"
 
 superset::python_venv_pips:
   - "apache-superset"
