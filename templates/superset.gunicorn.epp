@@ -8,7 +8,7 @@
   String  $statsd_host
 | -%>
 #! /bin/bash
-<%= $install_dir -%>/bin/gunicorn \
+<%= $install_dir -%>/apache-superset/bin/gunicorn \
       -w <%= $workers -%> \
       -k gevent \
       --timeout <%= $timeout -%> \

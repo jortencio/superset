@@ -7,7 +7,7 @@
 class superset::python {
 
   $python_ver = lookup('superset::python_version', String)
-  $venv_dir = lookup('superset::virtual_env_dir', String)
+  $superset_venv_dir = "${lookup('superset::virtual_env_dir', String)}/apache-superset"
 
   if $superset::manage_python {
 
@@ -34,12 +34,12 @@ class superset::python {
     default                      => $python_ver,
   }
 
-  python::pyvenv { $venv_dir:
+  python::pyvenv { $superset_venv_dir:
     ensure     => present,
     version    => $venv_python_ver,
     owner      => $superset::user,
     group      => $superset::user,
-    venv_dir   => $venv_dir,
+    venv_dir   => $superset_venv_dir,
     systempkgs => false,
   }
 
@@ -50,7 +50,9 @@ class superset::python {
     python::pip { $pkgname:
       ensure     => 'present',
       pkgname    => $pkgname,
-      virtualenv => $venv_dir,
+      virtualenv => $superset_venv_dir,
+      owner      => $superset::user,
+      group      => $superset::user,
     }
   }
 }

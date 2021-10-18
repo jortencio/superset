@@ -1,4 +1,5 @@
 <%- | 
+  String $user,
 | -%>
 [Unit]
 Description="Apache Superset"
@@ -6,6 +7,7 @@ After=network.target
 
 [Service]
 ExecStart=/bin/superset.gunicorn
+User=<%= $user %>
 Restart=on-failure
 RestartSec=5s
 
