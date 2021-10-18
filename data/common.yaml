@@ -9,15 +9,14 @@ superset::pip_packages:
 
 superset::user: 'superset'
 
-superset::python_version: '3.8'
+superset::python_version: 'python39'
 
-superset::python_pyvenvs:
-  "/var/www/apache-superset":
-    version: "3.8"
+superset::virtual_env_dir: "/var/www/apache-superset"
 
-superset::python_pips:
-  "apache-superset":
-    virtualenv: "/var/www/apache-superset"
+superset::python_venv_pips:
+  - "apache-superset"
+  - "gunicorn"
+  - "gevent"
 
 superset::admin_config:
   username: 'admin'
@@ -28,6 +27,7 @@ superset::admin_config:
 
 superset::manage_webserver: true
 
+# Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:
   workers: 10
   timeout: 120
