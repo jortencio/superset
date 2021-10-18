@@ -1,4 +1,5 @@
 <%- |
+  String  $install_dir,
   Integer $workers,
   String  $bind,
   Integer $timeout,
@@ -7,7 +8,7 @@
   String  $statsd_host
 | -%>
 #! /bin/bash
-/var/www/apache-superset/bin/gunicorn \
+<%= $install_dir -%>/bin/gunicorn \
       -w <%= $workers -%> \
       -k gevent \
       --timeout <%= $timeout -%> \

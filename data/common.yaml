@@ -29,6 +29,7 @@ superset::manage_webserver: true
 
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:
+  install_dir: "%{lookup('superset::virtual_env_dir')}"
   workers: 10
   timeout: 120
   bind: 0.0.0.0:6666

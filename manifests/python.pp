@@ -9,51 +9,39 @@ class superset::python {
   if $superset::manage_python {
 
     class { 'python' :
-      ensure                => 'present',
-      version               => lookup('superset::python_version', String),
-      pip                   => 'present',
-      dev                   => 'present',
-      gunicorn              => 'absent',
-      gunicorn_package_name => 'python3-gunicorn',
+      ensure   => 'present',
+      version  => lookup('superset::python_version', String),
+      pip      => 'present',
+      dev      => 'present',
+      gunicorn => 'absent',
     }
 
-    package { 'python3-wheel':
-      ensure => 'installed',
+    if $facts[os][family] == 'Redhat' {
+      package { 'python3-wheel':
+        ensure => 'installed',
+      }
     }
   }
 
-  file { '/var/www':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755'
-  }
+  $venv_dir = lookup('superset::virtual_env_dir', String)
 
-  python::pyvenv { '/var/www/apache-superset':
+  python::pyvenv { $venv_dir:
     ensure     => present,
-    version    => '3.9',
+    version    => lookup('superset::python_version', String),
     owner      => $superset::user,
     group      => $superset::user,
-    venv_dir   => '/var/www/apache-superset',
+    venv_dir   => $venv_dir,
     systempkgs => false,
   }
 
-  python::pip { 'apache-superset':
-    ensure     => 'present',
-    pkgname    => 'apache-superset',
-    virtualenv => '/var/www/apache-superset',
-  }
+  # Install the pip packages required by superset into the virtual environment
+  $venv_pip_packages = lookup('superset::python_venv_pips', Array[String])
 
-  python::pip { 'gunicorn':
-    ensure     => 'present',
-    pkgname    => 'gunicorn',
-    virtualenv => '/var/www/apache-superset',
+  $venv_pip_packages.each | String $pkgname | {
+    python::pip { $pkgname:
+      ensure     => 'present',
+      pkgname    => $pkgname,
+      virtualenv => $venv_dir,
+    }
   }
-
-  python::pip { 'gevent':
-    ensure     => 'present',
-    pkgname    => 'gevent',
-    virtualenv => '/var/www/apache-superset',
-  }
-
 }
