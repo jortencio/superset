@@ -7,7 +7,7 @@
 class superset::python {
 
   $python_ver = lookup('superset::python_version', String)
-  $superset_venv_dir = "${lookup('superset::virtual_env_dir', String)}/apache-superset"
+  $superset_venv_dir = "${superset::install_dir}/apache-superset"
 
   if $superset::manage_python {
 

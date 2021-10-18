@@ -1,6 +1,4 @@
 ---
-
-superset::virtual_env_dir: "/var/www/apache-superset"
 superset::manage_python: true
 superset::load_examples: false
 
@@ -11,7 +9,7 @@ superset::user: 'superset'
 
 superset::python_version: 'python39'
 
-superset::virtual_env_dir: "/home/superset"
+superset::install_dir: "/home/superset"
 
 superset::python_venv_pips:
   - "apache-superset"
@@ -29,7 +27,7 @@ superset::manage_webserver: true
 
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:
-  install_dir: "%{lookup('superset::virtual_env_dir')}"
+  install_dir: "%{lookup('superset::install_dir')}"
   workers: 10
   timeout: 120
   bind: 0.0.0.0:6666

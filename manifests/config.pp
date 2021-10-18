@@ -6,7 +6,7 @@
 #   include superset::config
 class superset::config {
   if $superset::config {
-    file { "${superset::virtual_env_dir}/superset_config.py":
+    file { "${superset::install_dir}/superset_config.py":
       ensure  => file,
       owner   => 'root',
       group   => 'root',

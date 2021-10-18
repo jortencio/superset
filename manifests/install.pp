@@ -6,23 +6,27 @@
 #   include superset::install
 class superset::install {
 
+  $superset_dir = "${superset::install_dir}/apache-superset"
+
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
     command  => 'superset db upgrade',
-    creates  => '/root/.superset/superset.db',
-    cwd      => $superset::virtual_env_dir,
-    path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    creates  => "/home/${superset::user}/.superset/superset.db", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
+    cwd      => $superset_dir,
+    path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
+    user     => $superset::user,
     require  => [Python::Pip['apache-superset']]
   }
 
   if $superset::load_examples {
     exec {'Load Examples':
       command  => 'superset load_examples && touch .superset_examples_loaded',
-      creates  => "${superset::virtual_env_dir}/.superset_examples_loaded",
-      cwd      => $superset::virtual_env_dir,
-      path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+      creates  => "${superset_dir}/.superset_examples_loaded",
+      cwd      => $superset_dir,
+      path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
       provider => 'shell',
+      user     => $superset::user,
       require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
     }
   }
@@ -34,18 +38,20 @@ class superset::install {
   exec { 'Create Admin User':
     command  => "superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]}",
     unless   => "superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
-    cwd      => $superset::virtual_env_dir,
-    path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    cwd      => $superset_dir,
+    path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
+    user     => $superset::user,
     provider => 'shell'
   }
 
   exec {'Initialize default roles and permissions':
     command  => 'superset init && touch .superset_init',
-    creates  => "${superset::virtual_env_dir}/.superset_init",
-    cwd      => $superset::virtual_env_dir,
-    path     => ["${superset::virtual_env_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    creates  => "${superset_dir}/.superset_init",
+    cwd      => $superset_dir,
+    path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
+    user     => $superset::user,
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
   }
 }

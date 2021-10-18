@@ -5,7 +5,7 @@
 # @example
 #   include superset
 class superset (
-  String $virtual_env_dir,
+  String $install_dir,
   Boolean $manage_python,
   Boolean $manage_webserver,
   Boolean $load_examples,
