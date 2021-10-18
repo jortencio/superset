@@ -6,11 +6,14 @@
 #   include superset::python
 class superset::python {
 
+  $python_ver = lookup('superset::python_version', String)
+  $venv_dir = lookup('superset::virtual_env_dir', String)
+
   if $superset::manage_python {
 
     class { 'python' :
       ensure   => 'present',
-      version  => lookup('superset::python_version', String),
+      version  => $python_ver,
       pip      => 'present',
       dev      => 'present',
       gunicorn => 'absent',
@@ -23,11 +26,17 @@ class superset::python {
     }
   }
 
-  $venv_dir = lookup('superset::virtual_env_dir', String)
+  $venv_python_ver = $python_ver ? {
+    /\Apython([0-9])([0-9]+)/    => "${1}.${2}",
+    /\Apython?([0-9])/           => "${1}",
+    /\Arh-python([0-9])([0-9]+)/ => "${1}.${2}",
+    /\Arh-python([0-9])/         => "${1}",
+    default                      => $python_ver,
+  }
 
   python::pyvenv { $venv_dir:
     ensure     => present,
-    version    => lookup('superset::python_version', String),
+    version    => $venv_python_ver,
     owner      => $superset::user,
     group      => $superset::user,
     venv_dir   => $venv_dir,
