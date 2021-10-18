@@ -7,7 +7,7 @@ superset::pip_packages:
 
 superset::user: 'superset'
 
-superset::python_version: 'python39'
+superset::python_version: 'python38'
 
 superset::install_dir: "/home/superset"
 
