@@ -19,6 +19,10 @@ class superset::install {
     require  => [Python::Pip['apache-superset']]
   }
 
+  notify { 'Load Examples':
+    message => "Load examples is set to: ${$superset::load_examples}"
+  }
+
   if $superset::load_examples {
     exec {'Load Examples':
       command  => 'superset load_examples && touch .superset_examples_loaded',
