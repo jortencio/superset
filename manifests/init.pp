@@ -6,10 +6,12 @@
 #   include superset
 class superset (
   String $install_dir,
+  Integer $port,
   Boolean $manage_python,
   Boolean $manage_webserver,
   Boolean $load_examples,
   String $user,
+  Boolean $manage_firewall,
   Optional[Hash] $admin_config,
   Optional[Hash] $config = undef,
   Optional[Hash] $gunicorn_config,
@@ -36,6 +38,10 @@ class superset (
   include superset::install
 
   include superset::service
+
+  if $manage_firewall {
+    include superset::firewalld
+  }
 
   Class['superset::packages'] -> Class['superset::python'] -> Class['superset::config'] -> Class['superset::install'] -> Class['superset::service']
 }

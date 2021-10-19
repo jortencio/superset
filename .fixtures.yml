@@ -3,8 +3,10 @@
 ---
 fixtures:
   forge_modules:
-     stdlib: "puppetlabs/stdlib"
-     python: "puppet/python"
-     epel: "puppet/epel"
-     puppetlabs-yumrepo_core: "puppetlabs/yumrepo_core"
+    stdlib: "puppetlabs/stdlib"
+    python: "puppet/python"
+    epel: "puppet/epel"
+    puppetlabs-yumrepo_core: "puppetlabs/yumrepo_core"
+    firewalld: "puppet/firewalld"
+    augeas_core: "puppetlabs/augeas_core"
 
