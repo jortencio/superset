@@ -12,7 +12,7 @@ class superset::init_db {
   $superset_dir = "${superset::install_dir}/apache-superset"
 
   # Test to see if exec can see config path
-  exec {'Initialize DB':
+  exec {'Check path':
     command  => 'echo $SUPERSET_CONFIG_PATH >> path.txt',
     creates  => "${superset_dir}/path.txt",
     cwd      => $superset_dir,
