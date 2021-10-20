@@ -1,10 +1,20 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Creates the Superset user and configures a Python virtual environment for installing Apache Superset and its dependent Python libraries 
 #
 # @example
 #   include superset::install
 class superset::install {
+
+  group { $superset::user :
+    ensure => present
+  }
+
+  user { $superset::user:
+    ensure     => present,
+    gid        => $superset::user,
+    managehome => true
+  }
 
   $superset_venv_dir = "${superset::install_dir}/apache-superset"
 
@@ -35,6 +45,7 @@ class superset::install {
       group      => $superset::user,
   }
 
+  # Install apache superset libraries for managing the webserver
   if $superset::manage_webserver {
     $webserver_venv_pip_pkg = ['gunicorn', 'gevent']
     $webserver_venv_pip_pkg.each | String $pkgname | {

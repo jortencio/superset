@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary 
 #
-# Configures the python component required by superset
+# Installs and configures the Python
 #
 # @example
 #   include superset::python

@@ -1,13 +1,13 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Manages the superset_config.py configuration file
 #
 # @example
 #   include superset::config
 class superset::config {
   assert_private()
 
-  if $superset::config {
+  if $superset::app_config {
     file { "${superset::install_dir}/superset_config.py":
       ensure  => file,
       owner   => 'root',

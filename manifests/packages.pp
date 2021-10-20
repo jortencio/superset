@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Manages package dependencies for Superset
 #
 # @example
 #   include superset::packages

@@ -6,7 +6,7 @@ superset::load_examples: false
 
 superset::user: 'superset'
 
-superset::port: 6666
+superset::port: 8088
 
 superset::python_version: 'python38'
 

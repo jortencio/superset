@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Manages firewalld service and opens Superset port
 #
 # @example
 #   include superset::firewalld

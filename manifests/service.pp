@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Configures and manages Superset service (using Gunicorn)
 #
 # @example
 #   include superset::service
@@ -8,7 +8,6 @@ class superset::service {
   assert_private()
 
   if $superset::manage_webserver {
-    $gunicorn_app_hash = $superset::config
 
     file { '/bin/superset.gunicorn':
       ensure  => file,

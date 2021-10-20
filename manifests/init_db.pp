@@ -1,6 +1,8 @@
 # @summary
 #
-# Class that initialises the superset db with an admin user, default roles and default permissions.  Can also optionally load examples
+# Initialises the superset db with an admin user, default roles and default permissions.  Can also optionally load examples
+#
+# lint:ignore:140chars
 #
 # @api private
 # 
@@ -60,3 +62,4 @@ class superset::init_db {
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
   }
 }
+# lint:endignore
