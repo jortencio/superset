@@ -11,12 +11,23 @@ class superset::init_db {
 
   $superset_dir = "${superset::install_dir}/apache-superset"
 
+  # Test to see if exec can see config path
+  exec {'Initialize DB':
+    command  => 'echo $SUPERSET_CONFIG_PATH >> path.txt',
+    creates  => "${superset_dir}/path.txt",
+    cwd      => $superset_dir,
+    path     => ["${superset_dir}/bin","${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    provider => 'shell',
+    user     => $superset::user,
+    require  => [Python::Pip['apache-superset']]
+  }
+
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
     command  => 'superset db upgrade && touch .superset_db_upgrade',
     creates  => "${superset_dir}/.superset_db_upgrade", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
     cwd      => $superset_dir,
-    path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
+    path     => ["${superset_dir}/bin","${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',
     user     => $superset::user,
     require  => [Python::Pip['apache-superset']]
