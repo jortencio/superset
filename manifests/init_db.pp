@@ -1,10 +1,10 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Class that initialises the superset db with an admin user, default roles and default permissions.  Can also optionally load examples
 #
-# @example
-#   include superset::install
-class superset::install {
+# @api private
+# 
+class superset::init_db {
   assert_private()
 
   $superset_dir = "${superset::install_dir}/apache-superset"
