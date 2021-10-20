@@ -8,7 +8,7 @@ class superset::config {
   assert_private()
 
   if $superset::app_config {
-    file { "${superset::install_dir}/superset_config.py":
+    file { "${superset::install_dir}/apache-superset/superset_config.py":
       ensure  => file,
       owner   => 'root',
       group   => 'root',
