@@ -33,6 +33,8 @@ class superset (
   #Configure Python
   include superset::python
 
+  include superset::install
+
   include superset::config
 
   include superset::init_db
@@ -43,5 +45,5 @@ class superset (
     include superset::firewalld
   }
 
-  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::config'] -> Class['superset::init_db'] -> Class['superset::service']
+  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::install']-> Class['superset::config'] -> Class['superset::init_db'] -> Class['superset::service']
 }

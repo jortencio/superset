@@ -1,10 +1,8 @@
 ---
 superset::manage_python: true
 superset::manage_firewall: false
+superset::manage_webserver: true
 superset::load_examples: false
-
-superset::pip_packages:
-  - apache-superset
 
 superset::user: 'superset'
 
@@ -13,11 +11,6 @@ superset::port: 6666
 superset::python_version: 'python38'
 
 superset::install_dir: "/home/superset"
-
-superset::python_venv_pips:
-  - "apache-superset"
-  - "gunicorn"
-  - "gevent"
 
 superset::admin_config:
   username: 'admin'
