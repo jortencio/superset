@@ -6,3 +6,4 @@ superset::package_dependencies:
   - 'openssl-devel'
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
+  - 'postgresql-devel'
