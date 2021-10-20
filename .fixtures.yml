@@ -9,4 +9,7 @@ fixtures:
     puppetlabs-yumrepo_core: "puppetlabs/yumrepo_core"
     firewalld: "puppet/firewalld"
     augeas_core: "puppetlabs/augeas_core"
+    postgresql: "puppetlabs/postgresql"
+    apt: "puppetlabs/apt"
+    concat: "puppetlabs/concat"
 

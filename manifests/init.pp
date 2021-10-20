@@ -56,6 +56,9 @@
 #   - wtf_csrf_exempt_list
 #   - wtf_csrf_time_limit
 #   - mapbox_api_key
+#
+# 
+#
 # lint:ignore:parameter_order
 class superset (
   String $install_dir,
@@ -67,7 +70,8 @@ class superset (
   Boolean $manage_firewall,
   Hash    $admin_config,
   Hash    $gunicorn_config,
-  Optional[Hash] $app_config = undef,
+  Hash    $app_config,
+  Hash    $pgsql_config
 ) {
   # lint:endignore
 
@@ -83,6 +87,9 @@ class superset (
   # Configure Superset
   include superset::config
 
+  # Install Postgresql database
+  include superset::postgresql
+
   # Initialise Superset Backend Database
   include superset::init_db
 
@@ -94,6 +101,6 @@ class superset (
     include superset::firewalld
   }
 
-  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::install']-> Class['superset::config'] -> Class['superset::init_db'] -> Class['superset::service']
+  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::install']-> Class['superset::config'] -> Class['superset::postgresql'] -> Class['superset::init_db'] -> Class['superset::service']
 }
 # lint:endignore

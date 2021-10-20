@@ -13,8 +13,8 @@ class superset::init_db {
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
-    command  => 'superset db upgrade',
-    creates  => "/home/${superset::user}/.superset/superset.db", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
+    command  => 'superset db upgrade && touch .superset_db_upgrade',
+    creates  => "${superset_dir}/.superset_db_upgrade", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     provider => 'shell',

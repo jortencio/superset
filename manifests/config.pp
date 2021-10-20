@@ -13,7 +13,7 @@ class superset::config {
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => epp('superset/superset_config.py.epp',$superset::config),
+      content => epp('superset/superset_config.py.epp',$superset::app_config),
       notify  => Service['superset']
     }
   }

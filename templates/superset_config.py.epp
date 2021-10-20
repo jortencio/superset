@@ -1,12 +1,12 @@
 <%- | 
-  Integer $row_limit = undef,
-  Integer $superset_webserver_port = undef,
-  String  $secret_key = undef, #TODO: Change to sensitive?
-  String  $sqlalchemy_database_uri = undef,
-  Boolean $wtf_csrf_enabled = undef,
-  Array[String] $wtf_csrf_exempt_list = undef,
-  Integer $wtf_csrf_time_limit = undef,
-  String $mapbox_api_key = undef
+  Optional[Integer] $row_limit = undef,
+  Optional[Integer] $superset_webserver_port = undef,
+  Optional[String]  $secret_key = undef, #TODO: Change to sensitive?
+  Optional[String]  $sqlalchemy_database_uri = undef,
+  Optional[Boolean] $wtf_csrf_enabled = undef,
+  Optional[Array[String]] $wtf_csrf_exempt_list = undef,
+  Optional[Integer] $wtf_csrf_time_limit = undef,
+  Optional[String] $mapbox_api_key = undef
 | -%>
 # Superset specific config
 # ROW_LIMIT = 5000
