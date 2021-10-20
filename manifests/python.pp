@@ -5,6 +5,7 @@
 # @example
 #   include superset::python
 class superset::python {
+  assert_private()
 
   $python_ver = lookup('superset::python_version', String)
   $superset_venv_dir = "${superset::install_dir}/apache-superset"

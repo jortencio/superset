@@ -5,6 +5,8 @@
 # @example
 #   include superset::config
 class superset::config {
+  assert_private()
+
   if $superset::config {
     file { "${superset::install_dir}/superset_config.py":
       ensure  => file,

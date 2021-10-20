@@ -5,6 +5,7 @@
 # @example
 #   include superset::service
 class superset::service {
+  assert_private()
 
   $gunicorn_app_hash = $superset::config
 

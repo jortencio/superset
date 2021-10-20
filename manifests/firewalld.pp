@@ -5,6 +5,7 @@
 # @example
 #   include superset::firewalld
 class superset::firewalld {
+  assert_private()
 
   class { 'firewalld': }
 

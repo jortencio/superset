@@ -5,6 +5,7 @@
 # @example
 #   include superset::install
 class superset::install {
+  assert_private()
 
   $superset_dir = "${superset::install_dir}/apache-superset"
 
