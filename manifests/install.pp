@@ -18,6 +18,15 @@ class superset::install {
 
   $superset_venv_dir = "${superset::install_dir}/apache-superset"
 
+  # Add script for exporting the SUPERSET_CONFIG_PATH
+  file { '/etc/profile.d/superset.sh':
+    ensure  => file,
+    owner   => $superset::user,
+    group   => $superset::user,
+    mode    => '0755',
+    content => epp('superset/superset.sh.epp',{ superset_dir => $superset_venv_dir}),
+  }
+
   $venv_python_ver = lookup('superset::python_version', String) ? {
     /\Apython([0-9])([0-9]+)/    => "${1}.${2}",
     /\Apython?([0-9])/           => "${1}",

@@ -1,0 +1,7 @@
+<%- |
+  String  $superset_dir,
+| -%>
+#! /bin/bash
+
+export SUPERSET_CONFIG_PATH=<%= $superset_dir %>
+
