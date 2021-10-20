@@ -42,3 +42,5 @@ superset::app_config:
   superset_webserver_port: "%{alias('superset::port')}"
   sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
 
+superset::db_drivers:
+  - 'psycopg2' 
