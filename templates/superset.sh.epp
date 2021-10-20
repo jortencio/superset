@@ -5,3 +5,6 @@
 
 export SUPERSET_CONFIG_PATH=<%= $superset_dir %>
 
+export PYTHONPATH=<%= $superset_dir %>:$PYTHONPATH
+
+

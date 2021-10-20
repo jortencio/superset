@@ -33,7 +33,7 @@ SECRET_KEY = <%= $secret_key %>
 # you want to explore are managed directly in the web UI
 # SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
 <% if $sqlalchemy_database_uri { -%>
-SQLALCHEMY_DATABASE_URI = <%= $sqlalchemy_database_uri %>
+SQLALCHEMY_DATABASE_URI = <%= "\'${sqlalchemy_database_uri}\'" %>
 <% } %> 
 
 # Flask-WTF flag for CSRF
