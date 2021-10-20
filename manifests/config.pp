@@ -10,8 +10,8 @@ class superset::config {
   if $superset::app_config {
     file { "${superset::install_dir}/apache-superset/superset_config.py":
       ensure  => file,
-      owner   => 'root',
-      group   => 'root',
+      owner   => $superset::user,
+      group   => $superset::user,
       mode    => '0644',
       content => epp('superset/superset_config.py.epp',$superset::app_config),
       notify  => Service['superset']
