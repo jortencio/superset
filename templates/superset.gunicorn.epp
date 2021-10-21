@@ -8,6 +8,8 @@
   String  $statsd_host
 | -%>
 #! /bin/bash
+export SUPERSET_CONFIG_PATH=<%= $install_dir -%>/apache-superset/superset_config.py
+
 <%= $install_dir -%>/apache-superset/bin/gunicorn \
       -w <%= $workers -%> \
       -k gevent \
