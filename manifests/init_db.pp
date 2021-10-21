@@ -41,7 +41,7 @@ class superset::init_db {
   # Add parameters here
   exec { 'Create Admin User':
     command  => "${set_config_path} superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]} > .create_admin",
-    unless   => "superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
+    unless   => "${set_config_path} superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
