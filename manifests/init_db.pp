@@ -25,8 +25,8 @@ class superset::init_db {
 
   if $superset::load_examples {
     exec {'Load Examples with test data':
-      command  => "${set_config_path} superset load_examples -t > .superset_examples_loaded_t",  # Only added -t option because it errors without it.  Need to test against non SQLlite database
-      creates  => "${superset_dir}/.superset_examples_loaded_t",
+      command  => "${set_config_path} superset load_examples > .superset_examples_loaded",
+      creates  => "${superset_dir}/.superset_examples_loaded",
       cwd      => $superset_dir,
       path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
       provider => 'shell',

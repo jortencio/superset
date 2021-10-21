@@ -2,7 +2,7 @@
 superset::manage_python: true
 superset::manage_firewall: false
 superset::manage_webserver: true
-superset::load_examples: false
+superset::load_examples: true
 
 superset::user: 'superset'
 
