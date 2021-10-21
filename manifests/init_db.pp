@@ -14,7 +14,7 @@ class superset::init_db {
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
-    command  => "${set_config_path} superset db upgrade && touch .superset_db_upgrade",
+    command  => "${set_config_path} superset db upgrade > .superset_db_upgrade",
     creates  => "${superset_dir}/.superset_db_upgrade", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin","${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
@@ -25,7 +25,7 @@ class superset::init_db {
 
   if $superset::load_examples {
     exec {'Load Examples with test data':
-      command  => "${set_config_path} superset load_examples -t && touch .superset_examples_loaded_t",  # Only added -t option because it errors without it.  Need to test against non SQLlite database
+      command  => "${set_config_path} superset load_examples -t > .superset_examples_loaded_t",  # Only added -t option because it errors without it.  Need to test against non SQLlite database
       creates  => "${superset_dir}/.superset_examples_loaded_t",
       cwd      => $superset_dir,
       path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
@@ -40,7 +40,7 @@ class superset::init_db {
 
   # Add parameters here
   exec { 'Create Admin User':
-    command  => "${set_config_path} superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]}",
+    command  => "${set_config_path} superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]} > .create_admin",
     unless   => "superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
@@ -50,7 +50,7 @@ class superset::init_db {
   }
 
   exec {'Initialize default roles and permissions':
-    command  => "${set_config_path} superset init && touch .superset_init",
+    command  => "${set_config_path} superset init > .superset_init",
     creates  => "${superset_dir}/.superset_init",
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
