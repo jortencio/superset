@@ -9,46 +9,49 @@ describe 'superset', :class do
 
       it { is_expected.to compile }
 
-      it { is_expected.to contain_class('superset::packages') }
+      context 'With default values' do 
+        it { is_expected.to contain_class('superset::packages') }
 
-      if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
-        packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+        if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
+          packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+        end
+
+        packages.each do |package|
+          it { is_expected.to contain_package(package) }
+        end
+
+        it { is_expected.to contain_class('superset::python') }
+
+        it { is_expected.to contain_class('superset::install') }
+        it { is_expected.to contain_user('superset') }
+        it { is_expected.to contain_group('superset') }
+        it { is_expected.to contain_file('/etc/profile.d/superset.sh') }
+        it { is_expected.to contain_Python__Pyvenv('/home/superset/apache-superset') }
+        it { is_expected.to contain_Python__Pip('apache-superset') }
+        it { is_expected.to contain_Python__Pip('gevent') }
+        it { is_expected.to contain_Python__Pip('gunicorn') }
+        it { is_expected.to contain_Python__Pip('psycopg2') }
+
+        it { is_expected.to contain_class('superset::config') }
+
+        it { is_expected.to contain_class('superset::postgresql') }
+        it { is_expected.to contain_Postgresql__Server__Db('superset') }
+
+        it { is_expected.to contain_class('superset::init_db') }
+        it { is_expected.to contain_exec('Create Admin User') }
+        it { is_expected.to contain_exec('Initialize DB') }
+        it { is_expected.to contain_exec('Initialize default roles and permissions') }
+
+        it { is_expected.to contain_class('superset::service') }
+        it { is_expected.to contain_file('/bin/superset.gunicorn') }
+        it { is_expected.to contain_file('/usr/lib/systemd/system/superset.service') }
+        it { is_expected.to contain_service('superset') }
+
+        it { is_expected.to contain_file('/home/superset/apache-superset/superset_config.py') }
+
       end
 
-      packages.each do |package|
-        it { is_expected.to contain_package(package) }
-      end
-
-      it { is_expected.to contain_class('superset::python') }
-
-      it { is_expected.to contain_class('superset::install') }
-      it { is_expected.to contain_user('superset') }
-      it { is_expected.to contain_group('superset') }
-      it { is_expected.to contain_file('/etc/profile.d/superset.sh') }
-      it { is_expected.to contain_Python__Pyvenv('/home/superset/apache-superset') }
-      it { is_expected.to contain_Python__Pip('apache-superset') }
-      it { is_expected.to contain_Python__Pip('gevent') }
-      it { is_expected.to contain_Python__Pip('gunicorn') }
-      it { is_expected.to contain_Python__Pip('psycopg2') }
-
-      it { is_expected.to contain_class('superset::config') }
-
-      it { is_expected.to contain_class('superset::postgresql') }
-      it { is_expected.to contain_Postgresql__Server__Db('superset') }
-
-      it { is_expected.to contain_class('superset::init_db') }
-      it { is_expected.to contain_exec('Create Admin User') }
-      it { is_expected.to contain_exec('Initialize DB') }
-      it { is_expected.to contain_exec('Initialize default roles and permissions') }
-
-      it { is_expected.to contain_class('superset::service') }
-      it { is_expected.to contain_file('/bin/superset.gunicorn') }
-      it { is_expected.to contain_file('/usr/lib/systemd/system/superset.service') }
-      it { is_expected.to contain_service('superset') }
-
-      it { is_expected.to contain_file('/home/superset/apache-superset/superset_config.py') }
-
-      context 'Manage Python is set true' do
+      context 'With manage_python set to true' do
         let(:params) { { 'manage_python': true } }
 
         it { is_expected.to contain_class('Python') }
@@ -59,7 +62,7 @@ describe 'superset', :class do
         end
       end
 
-      context 'Manage firewall is set to true' do
+      context 'With manage_python set to true' do
         let(:params) { { 'manage_firewall': true } }
 
         it { is_expected.to contain_class('superset::firewalld') }
