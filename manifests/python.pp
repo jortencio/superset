@@ -2,8 +2,8 @@
 #
 # Installs and configures the Python
 #
-# @example
-#   include superset::python
+# @api private
+#
 class superset::python {
   assert_private()
 

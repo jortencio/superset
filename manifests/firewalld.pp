@@ -2,8 +2,8 @@
 #
 # Manages firewalld service and opens Superset port
 #
-# @example
-#   include superset::firewalld
+# @api private
+#  
 class superset::firewalld {
   assert_private()
 

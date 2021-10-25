@@ -2,8 +2,8 @@
 #
 # Creates the Superset user and configures a Python virtual environment for installing Apache Superset and its dependent Python libraries 
 #
-# @example
-#   include superset::install
+# @api private
+# 
 class superset::install {
 
   group { $superset::user :

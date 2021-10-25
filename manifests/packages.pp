@@ -2,8 +2,8 @@
 #
 # Manages package dependencies for Superset
 #
-# @example
-#   include superset::packages
+# @api private
+#
 class superset::packages {
   assert_private()
 

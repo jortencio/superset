@@ -1,9 +1,9 @@
-# @summary A short summary of the purpose of this class
+# @summary
 #
-# A description of what this class does
+# Manages a basic postgresql backend for superset
 #
-# @example
-#   include superset::postgresql
+# @api private
+#
 class superset::postgresql {
 
   if $superset::manage_db {

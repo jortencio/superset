@@ -2,8 +2,8 @@
 #
 # Configures and manages Superset service (using Gunicorn)
 #
-# @example
-#   include superset::service
+# @api private
+#
 class superset::service {
   assert_private()
 
