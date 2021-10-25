@@ -5,11 +5,14 @@
 # @example
 #   include superset::postgresql
 class superset::postgresql {
-  class { 'postgresql::server':
-  }
 
-  postgresql::server::db { $superset::pgsql_config[database]:
-    user     => $superset::pgsql_config[user],
-    password => postgresql::postgresql_password($superset::pgsql_config[user], $superset::pgsql_config[password]),
+  if $superset::manage_db {
+    class { 'postgresql::server':
+    }
+
+    postgresql::server::db { $superset::pgsql_config[database]:
+      user     => $superset::pgsql_config[user],
+      password => postgresql::postgresql_password($superset::pgsql_config[user], $superset::pgsql_config[password]),
+    }
   }
 }

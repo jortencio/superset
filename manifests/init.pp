@@ -23,7 +23,10 @@
 #   Option for managing the installation of python.  Default: true
 #
 # @param manage_webserver
-#   Option for managing managing a gunicorn webserver.  Default: true 
+#   Option for managing a gunicorn webserver.  Default: true 
+#
+# @param manage_db
+#   Option for managing a Postgresql db back-end.  Default: true 
 #
 # @param manage_firewall
 #   Option for managing firewall (RHEL8 firwalld).  Default: false
@@ -67,6 +70,7 @@ class superset (
   Boolean $load_examples,
   Boolean $manage_python,
   Boolean $manage_webserver,
+  Boolean $manage_db,
   Boolean $manage_firewall,
   Hash    $admin_config,
   Hash    $gunicorn_config,
