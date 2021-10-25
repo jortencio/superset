@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Facter.add(:superset_version) do
-  # confine :kernel => "Linux"
+  confine :kernel => "Linux"
   # https://puppet.com/docs/puppet/latest/fact_overview.html
 
   setcode do

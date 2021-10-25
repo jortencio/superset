@@ -10,6 +10,7 @@ describe :superset_installdir, type: :fact do
   before :each do
     # perform any action that should be run before every test
     Facter.clear
+    allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
     allow(Facter::Core::Execution).to receive(:execute).with('echo $SUPERSET_CONFIG_PATH').and_return('/opt/apache-superset/superset_config.py')
   end
 
