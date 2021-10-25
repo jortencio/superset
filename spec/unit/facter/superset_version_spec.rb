@@ -10,7 +10,7 @@ describe :superset_version, type: :fact do
   before :each do
     # perform any action that should be run before every test
     Facter.clear
-    allow(Facter::Core::Execution).to receive(:execute).with('/home/superset/apache-superset/bin/superset version | grep Superset',
+    allow(Facter::Core::Execution).to receive(:execute).with('/home/superset/apache-superset/bin/superset version | grep Superset | sed -r "s/\\x1B\\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"',
 { on_fail: 'Superset Version Not Found' }).and_return('Superset 1.3.2')
   end
 
