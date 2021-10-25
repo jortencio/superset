@@ -2,8 +2,8 @@
 #
 # Manages the superset_config.py configuration file
 #
-# @example
-#   include superset::config
+# @api private
+# 
 class superset::config {
   assert_private()
 
