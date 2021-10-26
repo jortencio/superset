@@ -13,13 +13,6 @@ superset::python_version: 'python38'
 
 superset::install_dir: "/home/superset"
 
-superset::admin_config:
-  username: 'admin'
-  password: 'password'
-  firstname: 'admin'
-  lastname: 'admin'
-  email: 'admin@mycompany.com'
-
 superset::manage_webserver: true
 
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
