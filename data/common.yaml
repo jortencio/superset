@@ -15,6 +15,13 @@ superset::install_dir: "/home/superset"
 
 superset::manage_webserver: true
 
+superset::admin_config:
+  username: 'admin'
+  password: 'password'
+  firstname: 'admin'
+  lastname: 'admin'
+  email: 'admin@mycompany.com'
+
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:
   install_dir: "%{lookup('superset::install_dir')}"
