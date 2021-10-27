@@ -7,22 +7,7 @@ describe 'superset', :class do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      context 'With no parameters set'
-      it { is_expected.to compile.and_raise_error(%r{expects a value for parameter 'admin_config'}) }
-
-      context 'With default values and the admin_config set' do
-        let(:params) do
-          {
-            admin_config: {
-              username: 'admin',
-              password: 'password',
-              firstname: 'admin',
-              lastname: 'admin',
-              email: 'admin@mycompany.com'
-            }
-          }
-        end
-
+      context 'With default values (no parameters set)' do
         it { is_expected.to compile }
 
         it { is_expected.to contain_class('superset::packages') }
@@ -68,11 +53,11 @@ describe 'superset', :class do
       context 'With manage_python set to true and the admin_config set' do
         let(:params) do
           { 'manage_python': true, admin_config: {
-            username: 'admin',
-          password: 'password',
-          firstname: 'admin',
-          lastname: 'admin',
-          email: 'admin@mycompany.com'
+            username: 'test_admin',
+          password: 'test_password',
+          firstname: 'test_admin',
+          lastname: 'test_admin_password',
+          email: 'test-admin@mycompany.com'
           } }
         end
 
@@ -128,11 +113,11 @@ describe 'superset', :class do
       context 'With manage_python set to true and the admin_config set' do
         let(:params) do
           { 'manage_firewall': true, admin_config: {
-            username: 'admin',
-        password: 'password',
-        firstname: 'admin',
-        lastname: 'admin',
-        email: 'admin@mycompany.com'
+            username: 'test_admin',
+          password: 'test_password',
+          firstname: 'test_admin',
+          lastname: 'test_admin_password',
+          email: 'test-admin@mycompany.com'
           } }
         end
 
