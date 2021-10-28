@@ -1,19 +1,12 @@
 ---
+superset::install_dir: "/home/superset"
+superset::port: 8088
+superset::user: 'superset'
+superset::load_examples: false
 superset::manage_python: true
-superset::manage_firewall: false
 superset::manage_webserver: true
 superset::manage_db: true
-superset::load_examples: false
-
-superset::user: 'superset'
-
-superset::port: 8088
-
-superset::python_version: 'python38'
-
-superset::install_dir: "/home/superset"
-
-superset::manage_webserver: true
+superset::manage_firewall: false
 
 superset::admin_config:
   username: 'admin'
@@ -32,6 +25,10 @@ superset::gunicorn_config:
   limit_request_field_size: 0
   statsd_host: localhost:8125
 
+superset::app_config:
+  superset_webserver_port: "%{alias('superset::port')}"
+  sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+
 superset::pgsql_config:
   database: 'superset'
   user: 'superset'
@@ -39,9 +36,7 @@ superset::pgsql_config:
   host: 'localhost'
   port: 5432
 
-superset::app_config:
-  superset_webserver_port: "%{alias('superset::port')}"
-  sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+superset::python_version: 'python38'
 
 superset::db_drivers:
   - 'psycopg2' 
