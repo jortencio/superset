@@ -1,10 +1,8 @@
 # superset
 
-Welcome to your new module. A short overview of the generated parts can be found
-in the [PDK documentation][1].
+A Puppet module that is used for isntalling and configuring Apache Superset which is a data exploration and visualization platform.
 
-The README template below provides a starting point with details about what
-information to include in your README.
+For more information, please visit [Apache Superset][1].
 
 ## Table of Contents
 
@@ -19,99 +17,163 @@ information to include in your README.
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your
-module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module
-is what they want.
+This Puppet module is used to do basic installation and configuration of Apache Superset on RedHat systems.
 
 ## Setup
 
-### What superset affects **OPTIONAL**
+### What superset affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+Superset module installs and configures the following:
 
-If there's more that they should know about, though, this is the place to
-mention:
+* Superset dependencies
+* Python 3.8 (Optional)
+* Creates a Python virtual environment and installs dependent Python Libraries (including superset) within it
+* Configures Firewalld on RHEL (Optional)
+* Installs and configures a basic Postgresql Database as a Superset Back-end (Optional)
 
-* Files, packages, services, or operations that the module will alter, impact,
-  or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+Any of the services marked as (Optional) above can be managed seperately by setting the relevant parameters to false (See reference)
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements 
 
-If your module requires anything extra before setting up (pluginsync enabled,
-another module, etc.), mention it here.
+In order to use this module, make sure to have the following Puppet modules installed:
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section here.
+* puppetlabs-stdlib
+* puppet-python
+* puppet-epel
+* puppetlabs-yumrepo_core
+* puppet-firewalld
+* puppetlabs-augeas_core"
+* puppetlabs-postgresql
+* puppetlabs-apt
+* puppetlabs-concat
 
 ### Beginning with superset
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most basic
-use of the module.
+In order to get started with superset module with a basic configuration (Basic Install of Apache Superset with Python and Postgresql Installed)
+
+```
+include superset
+```
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your
-users how to use your module to solve problems, and be sure to include code
-examples. Include three to five examples of the most important or common tasks a
-user can accomplish with your module. Show users how to accomplish more complex
-tasks that involve different types, classes, and functions working in tandem.
-
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as
-Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your
-module. For details on how to add code comments and generate documentation with
-Strings, see the [Puppet Strings documentation][2] and [style guide][3].
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the
-root of your module directory and list out each of your module's classes,
-defined types, facts, functions, Puppet tasks, task plans, and resource types
-and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-* The data type, if applicable.
-* A description of what the element does.
-* Valid values, if the data type doesn't make it obvious.
-* Default value, if any.
-
-For example:
+This module supports the use of Hiera data for setting parameters.  The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details):
 
 ```
-### `pet::cat`
+---
+superset::install_dir: 
+superset::port: 
+superset::manage_python: 
+superset::manage_firewall: 
+superset::manage_webserver: 
+superset::manage_db: 
+superset::load_examples: 
+superset::user: 
+superset::python_version: 
+superset::manage_webserver: 
 
-#### Parameters
+superset::admin_config:
+  username: 
+  password: 
+  firstname: 
+  lastname: 
+  email: 
 
-##### `meow`
+superset::gunicorn_config:
+  install_dir: 
+  workers: 
+  timeout: 
+  bind: 
+  limit_request_line: 
+  limit_request_field_size: 
+  statsd_host: 
 
-Enables vocalization in your cat. Valid options: 'string'.
+superset::pgsql_config:
+  database:
+  user:
+  password:
+  host:
+  port:
 
-Default: 'medium-loud'.
+superset::app_config:
+  superset_webserver_port: 
+  sqlalchemy_database_uri: 
+
+superset::db_drivers:
+  - 
 ```
+
+Common Usage:
+
+Setup Superset with a configured admin user:
+
+```
+class { 'superset':
+  admin_config => {
+    username  => '<username>'
+    password  => '<password>'
+    firstname => '<firstname>'
+    lastname  => '<password>'
+    email     => '<email>'
+  }
+}
+```
+
+Setup Superset to manage firewalld on RedHat Linux:
+
+```
+class { 'superset':
+  manage_firewall => true
+}
+```
+
+Change default Superset config file (superset_config.py):
+
+```
+class { 'superset':
+  
+  app_config => {
+    superset_webserver_port => <webserver_port>
+    sqlalchemy_database_uri => <Database URI>
+  }
+}
+```
+Note: by setting up the app_config parameter in this way you will be overwriting the default app_config completely.  
+
+If you would like to only configure one of the many configuration options and leave others as per the default, this can be done using hiera data and the **lookup()** function
+
+In Hieradata data:
+
+```
+superset::appconfig:
+  sqlalchemy_database_uri: 'sqlite:////path/to/superset.db'
+  
+```
+
+```
+class { 'superset':
+  app_config => lookup('superset::appconfig', merge => hash)
+}
+```
+
+Note to see a list of supported databases and format for sqlalchemy_database_uri, please see: [Installing Database URI][2]
+
+Note 2: When installing on another database, please also configure the superset::db_drivers to include additional database drivers.  By default, the postgresql driver will already be included in this list.
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other
-warnings.
+The Superset module has a number of limitations:
+* It has only been tested to work on RedHat 8
+* Though the Python version can be overwritten, Superset module has only been tested on Python 3.9
+* It currently only installs the current latest version of the python Superset library
+* The admin_config parameter is limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 
+  * i.e. Logged in as a user with the Admin role, click on *Settings* and under *Security* click on *List User*.  Here you can see the older user and delete them)
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
+If you would like to contribute with the development of this module, please feel free to log development changes in the [issues][3] register for this project  
 
-## Release Notes/Contributors/Etc. **Optional**
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
-
-[1]: https://puppet.com/docs/pdk/latest/pdk_generating_modules.html
-[2]: https://puppet.com/docs/puppet/latest/puppet_strings.html
-[3]: https://puppet.com/docs/puppet/latest/puppet_strings_style.html
+[1]: https://superset.apache.org/
+[2]: https://superset.apache.org/docs/databases/installing-database-drivers
+[3]: https://github.com/jortencio/superset/issues

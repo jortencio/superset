@@ -1,1 +1,42 @@
---- {}
+---
+superset::install_dir: "/home/superset"
+superset::port: 8088
+superset::user: 'superset'
+superset::load_examples: false
+superset::manage_python: true
+superset::manage_webserver: true
+superset::manage_db: true
+superset::manage_firewall: false
+
+superset::admin_config:
+  username: 'admin'
+  password: 'password'
+  firstname: 'admin'
+  lastname: 'admin'
+  email: 'admin@mycompany.com'
+
+# Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
+superset::gunicorn_config:
+  install_dir: "%{lookup('superset::install_dir')}"
+  workers: 10
+  timeout: 120
+  bind: "0.0.0.0:%{lookup('superset::port')}"
+  limit_request_line: 0
+  limit_request_field_size: 0
+  statsd_host: localhost:8125
+
+superset::app_config:
+  superset_webserver_port: "%{alias('superset::port')}"
+  sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+
+superset::pgsql_config:
+  database: 'superset'
+  user: 'superset'
+  password: 'password'
+  host: 'localhost'
+  port: 5432
+
+superset::python_version: 'python38'
+
+superset::db_drivers:
+  - 'psycopg2' 
