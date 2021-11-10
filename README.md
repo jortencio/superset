@@ -57,43 +57,36 @@ include superset
 
 ## Usage
 
-This module supports the use of Hiera data for setting parameters as follows:
+This module supports the use of Hiera data for setting parameters.  The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details):
 
 ```
 ---
 superset::install_dir: 
-superset::port: 8088
-superset::manage_python: true
-superset::manage_firewall: false
-superset::manage_webserver: true
-superset::manage_db: true
-superset::load_examples: false
-
-superset::user: 'superset'
-
-
-
-superset::python_version: 'python38'
-
-
-
-superset::manage_webserver: true
+superset::port: 
+superset::manage_python: 
+superset::manage_firewall: 
+superset::manage_webserver: 
+superset::manage_db: 
+superset::load_examples: 
+superset::user: 
+superset::python_version: 
+superset::manage_webserver: 
 
 superset::admin_config:
-  username: 'admin'
-  password: 'password'
-  firstname: 'admin'
-  lastname: 'admin'
-  email: 'admin@mycompany.com'
+  username: 
+  password: 
+  firstname: 
+  lastname: 
+  email: 
 
 superset::gunicorn_config:
-  install_dir: "%{lookup('superset::install_dir')}"
-  workers: 10
-  timeout: 120
-  bind: "0.0.0.0:%{lookup('superset::port')}"
-  limit_request_line: 0
-  limit_request_field_size: 0
-  statsd_host: localhost:8125
+  install_dir: 
+  workers: 
+  timeout: 
+  bind: 
+  limit_request_line: 
+  limit_request_field_size: 
+  statsd_host: 
 
 superset::pgsql_config:
   database:
@@ -107,7 +100,7 @@ superset::app_config:
   sqlalchemy_database_uri: 
 
 superset::db_drivers:
-  - 'psycopg2' 
+  - 
 ```
 
 Common Usage:
@@ -180,11 +173,6 @@ The Superset module has a number of limitations:
 
 If you would like to contribute with the development of this module, please feel free to log development changes in the [issues][3] register for this project  
 
-## Release Notes
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
 
 [1]: https://superset.apache.org/
 [2]: https://superset.apache.org/docs/databases/installing-database-drivers
