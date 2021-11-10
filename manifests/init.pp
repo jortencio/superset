@@ -48,8 +48,8 @@
 #   - limit_request_field_size: 0
 #   - statsd_host: localhost:8125
 #
-# @param superset_config
-#   Optional parameter for overiding the superset default configuration
+# @param app_config
+#   Overide option for overiding the superset default configuration
 #   Available options include:
 #   - row_limit
 #   - superset_webserver_port
@@ -60,7 +60,20 @@
 #   - wtf_csrf_time_limit
 #   - mapbox_api_key
 #
-# 
+# @param pgsql_config
+#   Overide option for overiding the default postgresql configuration
+#   Available options include:
+#   - database
+#   - user
+#   - password
+#   - host
+#   - port
+#
+# @param python_version
+#   Overide option for setting the Python version if it will be managed by this module
+#
+# @param db_drivers
+#   Overide option for setting database drivers (python database driver packages) to be installed
 #
 # lint:ignore:parameter_order
 class superset (
@@ -72,10 +85,12 @@ class superset (
   Boolean $manage_webserver,
   Boolean $manage_db,
   Boolean $manage_firewall,
-  Hash    $admin_config,
-  Hash    $gunicorn_config,
-  Hash    $app_config,
-  Hash    $pgsql_config
+  Hash $admin_config,
+  Hash $gunicorn_config,
+  Hash $app_config,
+  Hash $pgsql_config,
+  String $python_version,
+  Array[String] $db_drivers,
 ) {
   # lint:endignore
 

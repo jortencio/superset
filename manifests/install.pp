@@ -69,8 +69,7 @@ class superset::install {
   }
 
   # Install required database drivers
-  $db_venv_pip_pkg = lookup('superset::db_drivers', Array[String])
-  $db_venv_pip_pkg.each | String $pkgname | {
+  $superset::db_drivers.each | String $pkgname | {
     python::pip { $pkgname:
       ensure     => 'present',
       pkgname    => $pkgname,

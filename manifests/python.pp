@@ -7,14 +7,11 @@
 class superset::python {
   assert_private()
 
-  $python_ver = lookup('superset::python_version', String)
-
-
   if $superset::manage_python {
 
     class { 'python' :
       ensure   => 'present',
-      version  => $python_ver,
+      version  => $superset::python_version,
       pip      => 'present',
       dev      => 'present',
       gunicorn => 'absent',
