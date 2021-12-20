@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Facter.add(:superset_config) do
-  # https://puppet.com/docs/puppet/latest/fact_overview.html
+  confine kernel: 'Linux'
   setcode do
     config = {}
     install_dir = Facter.value(:superset_installdir)
