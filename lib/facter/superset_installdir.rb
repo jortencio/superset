@@ -3,7 +3,7 @@
 Facter.add(:superset_installdir) do
   confine kernel: 'Linux'
   setcode do
-    Facter::Core::Execution.execute('echo $USER')
-    # path.sub('/superset_config.py', '')
+    path = Facter::Core::Execution.execute('/usr/bin/echo $SUPERSET_CONFIG_PATH')
+    path.sub('/superset_config.py', '')
   end
 end
