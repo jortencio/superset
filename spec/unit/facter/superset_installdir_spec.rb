@@ -15,6 +15,6 @@ describe :superset_installdir, type: :fact do
   end
 
   it 'returns a value' do
-    expect(fact.value).to eq('/opt/apache-superset')
+    expect(fact.value).to eq('/opt/apache-superset/superset_config.py')
   end
 end
