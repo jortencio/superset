@@ -26,6 +26,7 @@ describe 'superset', :class do
         it { is_expected.to contain_user('superset') }
         it { is_expected.to contain_group('superset') }
         it { is_expected.to contain_file('/etc/profile.d/superset.sh') }
+        it { is_expected.to contain_file('/opt/puppetlabs/facter/facts.d/superset_installdir.txt') }
         it { is_expected.to contain_Python__Pyvenv('/home/superset/apache-superset') }
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }
@@ -79,6 +80,7 @@ describe 'superset', :class do
         it { is_expected.to contain_user('superset') }
         it { is_expected.to contain_group('superset') }
         it { is_expected.to contain_file('/etc/profile.d/superset.sh') }
+        it { is_expected.to contain_file('/opt/puppetlabs/facter/facts.d/superset_installdir.txt') }
         it { is_expected.to contain_Python__Pyvenv('/home/superset/apache-superset') }
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }
@@ -139,6 +141,7 @@ describe 'superset', :class do
         it { is_expected.to contain_user('superset') }
         it { is_expected.to contain_group('superset') }
         it { is_expected.to contain_file('/etc/profile.d/superset.sh') }
+        it { is_expected.to contain_file('/opt/puppetlabs/facter/facts.d/superset_installdir.txt') }
         it { is_expected.to contain_Python__Pyvenv('/home/superset/apache-superset') }
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }

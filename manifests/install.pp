@@ -27,6 +27,15 @@ class superset::install {
     content => epp('superset/superset.sh.epp',{ superset_dir => $superset_venv_dir}),
   }
 
+  # Create external fact for the install directory
+  file { '/opt/puppetlabs/facter/facts.d/superset_installdir.txt':
+    ensure  => file,
+    owner   => $superset::user,
+    group   => $superset::user,
+    mode    => '0755',
+    content => "superset_installdir=${$superset_venv_dir}",
+  }
+
   $venv_python_ver = lookup('superset::python_version', String) ? {
     /\Apython([0-9])([0-9]+)/    => "${1}.${2}",
     /\Apython?([0-9])/           => "${1}",

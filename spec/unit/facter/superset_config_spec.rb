@@ -14,6 +14,7 @@ describe :superset_config, type: :fact do
     Facter.clear
     allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
     allow(Facter).to receive(:value).with(:superset_installdir).and_return('/home/superset/apache-superset')
+    allow(File).to receive(:exist?).with('/home/superset/apache-superset/superset_config.py').and_return(true)
     allow(File).to receive(:open).with('/home/superset/apache-superset/superset_config.py', 'r').and_return(content)
   end
 

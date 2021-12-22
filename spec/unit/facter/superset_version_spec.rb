@@ -17,6 +17,6 @@ describe :superset_version, type: :fact do
   end
 
   it 'returns a value' do
-    expect(fact.value).to eq('1.3.2')
+    expect(fact.value).to eq('Superset 1.3.2')
   end
 end
