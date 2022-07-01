@@ -7,4 +7,5 @@ export SUPERSET_CONFIG_PATH=<%= $superset_dir %>/superset_config.py
 
 export PYTHONPATH=<%= $superset_dir %>:$PYTHONPATH
 
+export FLASK_APP=superset
 
