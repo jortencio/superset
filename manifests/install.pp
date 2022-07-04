@@ -56,7 +56,7 @@ class superset::install {
 
   # Install apache superset
   python::pip { 'apache-superset':
-      ensure     => 'latest',
+      ensure     => 'present',
       pkgname    => 'apache-superset',
       virtualenv => $superset_venv_dir,
       owner      => $superset::user,
