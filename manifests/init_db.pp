@@ -44,7 +44,7 @@ class superset::init_db {
     unless   => "${set_config_path} superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
-    require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
+    require  => [Python::Pip['apache-superset'],Exec['Initialize DB'],File['/etc/profile.d/superset.sh']],
     user     => $superset::user,
     provider => 'shell'
   }
