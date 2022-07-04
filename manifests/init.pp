@@ -120,6 +120,12 @@ class superset (
     include superset::firewalld
   }
 
-  Class['superset::packages'] -> Class['superset::python'] -> Class['superset::install']-> Class['superset::config'] -> Class['superset::postgresql'] -> Class['superset::init_db'] -> Class['superset::service']
+  Class['superset::packages']
+  -> Class['superset::python']
+  -> Class['superset::install']
+  -> Class['superset::config']
+  -> Class['superset::postgresql']
+  -> Class['superset::init_db']
+  -> Class['superset::service']
 }
 # lint:endignore

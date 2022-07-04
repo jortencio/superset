@@ -63,6 +63,15 @@ class superset::install {
       group      => $superset::user,
   }
 
+  # Lock version of MarkupSafe due later versions breaking Superset https://github.com/apache/superset/issues/19150
+  python::pip { 'MarkupSafe':
+      ensure     => '2.0.1',
+      pkgname    => 'MarkupSafe',
+      virtualenv => $superset_venv_dir,
+      owner      => $superset::user,
+      group      => $superset::user,
+  }
+
   # Install apache superset libraries for managing the webserver
   if $superset::manage_webserver {
     $webserver_venv_pip_pkg = ['gunicorn', 'gevent']
