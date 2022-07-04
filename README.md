@@ -164,7 +164,7 @@ Note 2: When installing on another database, please also configure the superset:
 
 The Superset module has a number of limitations:
 * It has only been tested to work on RedHat 8
-* Though the Python version can be overwritten, Superset module has only been tested on Python 3.9
+* Though the Python version can be overwritten, Superset module has only been tested on Python 3.8
 * Superset app configuration file limited to options currently specified in the epp template
 * It currently only installs the current latest version of the python Superset library
 * The admin_config parameter is limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 
