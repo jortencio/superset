@@ -10,11 +10,11 @@ class superset::init_db {
   assert_private()
 
   $superset_dir = "${superset::install_dir}/apache-superset"
-  $set_config_path = "export SUPERSET_CONFIG_PATH=${superset_dir}/superset_config.py;"
+  $set_env_var = "export SUPERSET_CONFIG_PATH=${superset_dir}/superset_config.py; export FLASK_APP=${superset_dir}/bin/superset;"
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
-    command  => "${set_config_path} superset db upgrade > .superset_db_upgrade",
+    command  => "${set_env_var} superset db upgrade > .superset_db_upgrade",
     creates  => "${superset_dir}/.superset_db_upgrade", #TODO: Need to fix this condition as it may be overiden in config / replaced with a database
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin","${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
@@ -25,7 +25,7 @@ class superset::init_db {
 
   if $superset::load_examples {
     exec {'Load Examples with test data':
-      command  => "${set_config_path} superset load_examples > .superset_examples_loaded",
+      command  => "${set_env_var} superset load_examples > .superset_examples_loaded",
       creates  => "${superset_dir}/.superset_examples_loaded",
       cwd      => $superset_dir,
       path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
@@ -40,8 +40,8 @@ class superset::init_db {
 
   # Add parameters here
   exec { 'Create Admin User':
-    command  => "${set_config_path} superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]} > .create_admin",
-    unless   => "${set_config_path} superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
+    command  => "${set_env_var} superset fab create-admin --username ${admin_hash[username]} --firstname ${admin_hash[firstname]} --lastname ${admin_hash[lastname]} --password ${admin_hash[password]} --email ${admin_hash[email]} > .create_admin",
+    unless   => "${set_env_var} superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
     require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
@@ -50,7 +50,7 @@ class superset::init_db {
   }
 
   exec {'Initialize default roles and permissions':
-    command  => "${set_config_path} superset init > .superset_init",
+    command  => "${set_env_var} superset init > .superset_init",
     creates  => "${superset_dir}/.superset_init",
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
