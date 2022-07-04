@@ -10,7 +10,7 @@ class superset::init_db {
   assert_private()
 
   $superset_dir = "${superset::install_dir}/apache-superset"
-  $set_config_path = "export SUPERSET_CONFIG_PATH=${superset_dir}/superset_config.py;"
+  $set_config_path = "export SUPERSET_CONFIG_PATH=${superset_dir}/superset_config.py; export FLASK_APP=${superset_dir}/bin/superset;"
 
   # Use of SQLite will be deprecated at some point
   exec {'Initialize DB':
@@ -44,7 +44,7 @@ class superset::init_db {
     unless   => "${set_config_path} superset fab list-users | grep ${admin_hash[username]}", #TODO: Improve condition for this
     cwd      => $superset_dir,
     path     => ["${superset_dir}/bin",'/usr/local/bin','/usr/bin','/bin', '/usr/sbin'],
-    require  => [Python::Pip['apache-superset'],Exec['Initialize DB'],File['/etc/profile.d/superset.sh']],
+    require  => [Python::Pip['apache-superset'],Exec['Initialize DB']],
     user     => $superset::user,
     provider => 'shell'
   }
