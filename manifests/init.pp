@@ -10,6 +10,9 @@
 # @param install_dir
 #   The directory that a Python Virtual Environment will be created under and where Superset will be installed
 #
+# @param version
+#   The version of Apache Superset to install.
+#
 # @param port
 #   The port that that superset will be served from. Default: 8088
 #
@@ -49,39 +52,30 @@
 #   - statsd_host: localhost:8125
 #
 # @param manage_config
-#
 #  Boolean for setting whether to manage the config file superset_config.py
 #
 # @param config_row_limit
-#
 #  Optional setting for setting ROW_LIMIT in superset_config.py
 #
 # @param config_webserver_port
-#
 #  Optional setting for setting SUPERSET_WEBSERVER_PORT in superset_config.py
 #
 # @param config_secret_key
-#
 #  Sensitive parameter for setting SECRET_KEY in superset_config.py
 #
 # @param config_sqlalchemy_database_uri
-#
 #  Optional setting for setting SQLALCHEMY_DATABASE_URI in superset_config.py
 #
 # @param config_wtf_csrf_enabled
-#
 #  Optional setting for setting WTF_CSRF_ENABLED in superset_config.py
 #
 # @param config_wtf_csrf_exempt_list
-#
 #  Optional setting for setting WTF_CSRF_EXEMPT_LIST in superset_config.py
 #
 # @param config_wtf_csrf_time_limit
-#
 #  Optional setting for setting WTF_CSRF_TIME_LIMIT in superset_config.py
 #
 # @param config_mapbox_api_key
-#
 #  Optional setting for setting MAPBOX_API_KEY in superset_config.py
 #
 # @param pgsql_config
@@ -101,28 +95,29 @@
 #
 # lint:ignore:parameter_order
 class superset (
-  String                      $install_dir,
-  Integer                     $port,
-  String                      $user,
-  Boolean                     $load_examples,
-  Boolean                     $manage_python,
-  Boolean                     $manage_webserver,
-  Boolean                     $manage_db,
-  Boolean                     $manage_firewall,
-  Hash                        $admin_config,
-  Hash                        $gunicorn_config,
-  Boolean                     $manage_config = true,
-  Optional[Integer]           $config_row_limit = undef,
-  Optional[Integer]           $config_webserver_port = undef,
-  Sensitive[String]           $config_secret_key = Sensitive('53cR37K3y'),
-  Optional[String]            $config_sqlalchemy_database_uri = undef,
-  Optional[Boolean]           $config_wtf_csrf_enabled = undef,
-  Optional[Array[String]]     $config_wtf_csrf_exempt_list = undef,
-  Optional[Integer]           $config_wtf_csrf_time_limit = undef,
-  Optional[String]            $config_mapbox_api_key = undef,
-  Hash                        $pgsql_config,
-  String                      $python_version,
-  Array[String]               $db_drivers,
+  String                                                $install_dir,
+  Variant[Enum['present','absent','latest'], String[1]] $version = 'present',
+  Integer                                               $port,
+  String                                                $user,
+  Boolean                                               $load_examples,
+  Boolean                                               $manage_python,
+  Boolean                                               $manage_webserver,
+  Boolean                                               $manage_db,
+  Boolean                                               $manage_firewall,
+  Hash                                                  $admin_config,
+  Hash                                                  $gunicorn_config,
+  Boolean                                               $manage_config = true,
+  Optional[Integer]                                     $config_row_limit = undef,
+  Optional[Integer]                                     $config_webserver_port = undef,
+  Sensitive[String]                                     $config_secret_key = Sensitive('53cR37K3y'),
+  Optional[String]                                      $config_sqlalchemy_database_uri = undef,
+  Optional[Boolean]                                     $config_wtf_csrf_enabled = undef,
+  Optional[Array[String]]                               $config_wtf_csrf_exempt_list = undef,
+  Optional[Integer]                                     $config_wtf_csrf_time_limit = undef,
+  Optional[String]                                      $config_mapbox_api_key = undef,
+  Hash                                                  $pgsql_config,
+  String                                                $python_version,
+  Array[String]                                         $db_drivers,
 ) {
   # lint:endignore
 

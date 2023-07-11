@@ -56,11 +56,11 @@ class superset::install {
 
   # Install apache superset
   python::pip { 'apache-superset':
-      ensure     => 'present',
-      pkgname    => 'apache-superset',
-      virtualenv => $superset_venv_dir,
-      owner      => $superset::user,
-      group      => $superset::user,
+    ensure     => $superset::version,
+    pkgname    => 'apache-superset',
+    virtualenv => $superset_venv_dir,
+    owner      => $superset::user,
+    group      => $superset::user,
   }
 
   # Lock version of MarkupSafe due later versions breaking Superset https://github.com/apache/superset/issues/19150

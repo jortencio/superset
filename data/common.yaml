@@ -4,6 +4,7 @@ lookup_options:
     convert_to: "Sensitive"
 
 superset::install_dir: "/home/superset"
+superset::version: 'present'
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false
