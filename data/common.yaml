@@ -39,7 +39,8 @@ superset::pgsql_config:
 superset::python_version: 'python38'
 
 superset::db_drivers:
-  - 'psycopg2-binary'
-  - 'cryptography==38.0.2'
-  - 'pillow'
-  - 'wtforms==2.3.3'
+  - 'psycopg2'
+  # - 'psycopg2-binary'
+  # - 'cryptography==38.0.2'
+  # - 'pillow'
+  # - 'wtforms==2.3.3'
