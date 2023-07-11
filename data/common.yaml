@@ -5,7 +5,8 @@ lookup_options:
 
 superset::install_dir: "/home/superset"
 superset::version: 'present'
-superset::additional_python_lib: 
+superset::additional_python_lib:
+  - 'sqlparse==0.4.3'
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false
