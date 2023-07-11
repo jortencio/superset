@@ -1,29 +1,21 @@
-<%- | 
-  Optional[Integer] $row_limit = undef,
-  Optional[Integer] $superset_webserver_port = undef,
-  Optional[String]  $secret_key = undef, #TODO: Change to sensitive?
-  Optional[String]  $sqlalchemy_database_uri = undef,
-  Optional[Boolean] $wtf_csrf_enabled = undef,
-  Optional[Array[String]] $wtf_csrf_exempt_list = undef,
-  Optional[Integer] $wtf_csrf_time_limit = undef,
-  Optional[String] $mapbox_api_key = undef
-| -%>
+# Managed by Puppet
+
 # Superset specific config
 # ROW_LIMIT = 5000
-<% if $row_limit { -%>
-ROW_LIMIT = <%= $row_limit -%>
+<% if $superset::config_row_limit { -%>
+ROW_LIMIT = <%= $superset::config_row_limit -%>
 <% } -%>
 
 # SUPERSET_WEBSERVER_PORT = 8088
-<% if $superset_webserver_port { -%>
-SUPERSET_WEBSERVER_PORT = <%= $superset_webserver_port -%>
+<% if $superset::config_webserver_port { -%>
+SUPERSET_WEBSERVER_PORT = <%= $superset::config_webserver_port -%>
 <% } -%>
 
 # Flask App Builder configuration
 # Your App secret key
 # SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
-<% if $secret_key { -%>
-SECRET_KEY = <%= $secret_key %>
+<% if $superset::config_secret_key { -%>
+SECRET_KEY = <%= "\'${superset::config_secret_key}\'" %>
 <% } %> 
 
 # The SQLAlchemy connection string to your database backend
@@ -32,31 +24,31 @@ SECRET_KEY = <%= $secret_key %>
 # Note that the connection information to connect to the datasources
 # you want to explore are managed directly in the web UI
 # SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
-<% if $sqlalchemy_database_uri { -%>
-SQLALCHEMY_DATABASE_URI = <%= "\'${sqlalchemy_database_uri}\'" %>
+<% if $superset::config_sqlalchemy_database_uri { -%>
+SQLALCHEMY_DATABASE_URI = <%= "\'${superset::config_sqlalchemy_database_uri}\'" %>
 <% } %> 
 
 # Flask-WTF flag for CSRF
 # WTF_CSRF_ENABLED = True
-<% if $wtf_csrf_enabled { -%>
-WTF_CSRF_ENABLED = <%= $wtf_csrf_enabled %>
+<% if $superset::config_wtf_csrf_enabled { -%>
+WTF_CSRF_ENABLED = <%= $superset::config_wtf_csrf_enabled %>
 <% } %>
 
 # Add endpoints that need to be exempt from CSRF protection
 # WTF_CSRF_EXEMPT_LIST = []
-<% if $wtf_csrf_exempt_list { -%>
-WTF_CSRF_EXEMPT_LIST = <%= $wtf_csrf_exempt_list -%>
+<% if $superset::config_wtf_csrf_exempt_list { -%>
+WTF_CSRF_EXEMPT_LIST = <%= $superset::config_wtf_csrf_exempt_list -%>
 <% } -%>
 
 # A CSRF token that expires in 1 year
 # WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
-<% if $wtf_csrf_time_limit { -%>
-WTF_CSRF_TIME_LIMIT = <%= $wtf_csrf_time_limit -%>
+<% if $superset::config_wtf_csrf_time_limit { -%>
+WTF_CSRF_TIME_LIMIT = <%= $superset::config_wtf_csrf_time_limit -%>
 <% } -%>
 
 # Set this API key to enable Mapbox visualizations
 # MAPBOX_API_KEY = ''
-<% if $mapbox_api_key { -%>
-MAPBOX_API_KEY = <%= $mapbox_api_key -%>
+<% if $superset::config_mapbox_api_key { -%>
+MAPBOX_API_KEY = <%= "\'${superset::config_mapbox_api_key}\'" %>
 <% } -%>
 

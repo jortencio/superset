@@ -1,5 +1,13 @@
 ---
+lookup_options:
+  superset::config_secret_key:
+    convert_to: "Sensitive"
+
 superset::install_dir: "/home/superset"
+superset::version: '2.1.0'
+superset::additional_python_lib:
+  - 'sqlparse==0.4.3'
+  - 'marshmallow-enum==1.5.1'
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false
@@ -25,9 +33,16 @@ superset::gunicorn_config:
   limit_request_field_size: 0
   statsd_host: localhost:8125
 
-superset::app_config:
-  superset_webserver_port: "%{alias('superset::port')}"
-  sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+superset::manage_config: true
+superset::config_row_limit: ~
+superset::config_webserver_port: "%{alias('superset::port')}"
+superset::config_secret_key: '53cR37K3y'
+superset::config_sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+superset::config_wtf_csrf_enabled: ~
+superset::config_wtf_csrf_exempt_list: ~
+superset::config_wtf_csrf_time_limit: ~
+superset::config_mapbox_api_key: ~
+
 
 superset::pgsql_config:
   database: 'superset'
@@ -39,7 +54,4 @@ superset::pgsql_config:
 superset::python_version: 'python38'
 
 superset::db_drivers:
-  - 'psycopg2-binary'
-  - 'cryptography==38.0.2'
-  - 'pillow'
-  - 'wtforms==2.3.3'
+  - 'psycopg2'
