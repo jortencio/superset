@@ -13,7 +13,7 @@ class superset::install {
   user { $superset::user:
     ensure     => present,
     gid        => $superset::user,
-    managehome => true
+    managehome => true,
   }
 
   $superset_venv_dir = "${superset::install_dir}/apache-superset"
@@ -64,15 +64,24 @@ class superset::install {
   }
 
   # Lock version of MarkupSafe due later versions breaking Superset https://github.com/apache/superset/issues/19150
-  python::pip { 'MarkupSafe':
-      ensure     => '2.0.1',
-      pkgname    => 'MarkupSafe',
+  # python::pip { 'MarkupSafe':
+  #     ensure     => '2.0.1',
+  #     pkgname    => 'MarkupSafe',
+  #     virtualenv => $superset_venv_dir,
+  #     owner      => $superset::user,
+  #     group      => $superset::user,
+  # }
+  $superset::additional_python_lib.each | String $pkgname | {
+    python::pip { $pkgname:
+      ensure     => 'present',
+      pkgname    => $pkgname,
       virtualenv => $superset_venv_dir,
       owner      => $superset::user,
       group      => $superset::user,
+    }
   }
 
-  # Install apache superset libraries for managing the webserver
+  # Install python libraries for managing the webserver
   if $superset::manage_webserver {
     $webserver_venv_pip_pkg = ['gunicorn', 'gevent']
     $webserver_venv_pip_pkg.each | String $pkgname | {

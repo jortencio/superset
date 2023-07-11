@@ -5,6 +5,7 @@ lookup_options:
 
 superset::install_dir: "/home/superset"
 superset::version: 'present'
+superset::additional_python_lib: 
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false

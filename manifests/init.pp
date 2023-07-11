@@ -13,6 +13,9 @@
 # @param version
 #   The version of Apache Superset to install.
 #
+# @param additional_python_lib
+#   Array of additional python libraries to install.
+#
 # @param port
 #   The port that that superset will be served from. Default: 8088
 #
@@ -97,6 +100,7 @@
 class superset (
   String                                                $install_dir,
   Variant[Enum['present','absent','latest'], String[1]] $version = 'present',
+  Array[String]                                         $additional_python_lib = [],
   Integer                                               $port,
   String                                                $user,
   Boolean                                               $load_examples,
