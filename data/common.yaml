@@ -7,6 +7,7 @@ superset::install_dir: "/home/superset"
 superset::version: 'present'
 superset::additional_python_lib:
   - 'sqlparse==0.4.3'
+  - 'marshmallow_enum'
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false
