@@ -15,7 +15,7 @@ SUPERSET_WEBSERVER_PORT = <%= $superset::config_webserver_port -%>
 # Your App secret key
 # SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
 <% if $superset::config_secret_key { -%>
-SECRET_KEY = <%= $superset::config_secret_key %>
+SECRET_KEY = <%= "\'${superset::config_secret_key}\'" %>
 <% } %> 
 
 # The SQLAlchemy connection string to your database backend
@@ -49,6 +49,6 @@ WTF_CSRF_TIME_LIMIT = <%= $superset::config_wtf_csrf_time_limit -%>
 # Set this API key to enable Mapbox visualizations
 # MAPBOX_API_KEY = ''
 <% if $superset::config_mapbox_api_key { -%>
-MAPBOX_API_KEY = <%= $superset::config_mapbox_api_key -%>
+MAPBOX_API_KEY = <%= "\'${superset::config_mapbox_api_key}\'" %>
 <% } -%>
 
