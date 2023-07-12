@@ -8,13 +8,13 @@ class superset::python {
   assert_private()
 
   if $superset::manage_python {
-
     class { 'python' :
-      ensure   => 'present',
-      version  => $superset::python_version,
-      pip      => 'present',
-      dev      => 'present',
-      gunicorn => 'absent',
+      ensure              => 'present',
+      version             => $superset::python_version,
+      pip                 => 'present',
+      dev                 => 'present',
+      gunicorn            => 'absent',
+      manage_venv_package => true,
     }
 
     if $facts[os][family] == 'Redhat' {
