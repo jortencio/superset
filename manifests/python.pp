@@ -14,6 +14,7 @@ class superset::python {
       pip      => 'present',
       dev      => 'present',
       gunicorn => 'absent',
+      venv     => 'present',
     }
 
     if $facts[os][family] == 'Redhat' {
