@@ -43,79 +43,140 @@ include superset
 
 The following parameters are available in the `superset` class:
 
-* [`install_dir`](#install_dir)
-* [`port`](#port)
-* [`user`](#user)
-* [`load_examples`](#load_examples)
-* [`manage_python`](#manage_python)
-* [`manage_webserver`](#manage_webserver)
-* [`manage_db`](#manage_db)
-* [`manage_firewall`](#manage_firewall)
-* [`admin_config`](#admin_config)
-* [`gunicorn_config`](#gunicorn_config)
-* [`app_config`](#app_config)
-* [`pgsql_config`](#pgsql_config)
-* [`python_version`](#python_version)
-* [`db_drivers`](#db_drivers)
+* [`install_dir`](#-superset--install_dir)
+* [`version`](#-superset--version)
+* [`additional_python_lib`](#-superset--additional_python_lib)
+* [`port`](#-superset--port)
+* [`user`](#-superset--user)
+* [`load_examples`](#-superset--load_examples)
+* [`manage_python`](#-superset--manage_python)
+* [`manage_webserver`](#-superset--manage_webserver)
+* [`manage_db`](#-superset--manage_db)
+* [`manage_firewall`](#-superset--manage_firewall)
+* [`admin_username`](#-superset--admin_username)
+* [`admin_password`](#-superset--admin_password)
+* [`admin_firstname`](#-superset--admin_firstname)
+* [`admin_lastname`](#-superset--admin_lastname)
+* [`admin_email`](#-superset--admin_email)
+* [`gunicorn_config`](#-superset--gunicorn_config)
+* [`manage_config`](#-superset--manage_config)
+* [`config_row_limit`](#-superset--config_row_limit)
+* [`config_webserver_port`](#-superset--config_webserver_port)
+* [`config_secret_key`](#-superset--config_secret_key)
+* [`config_sqlalchemy_database_uri`](#-superset--config_sqlalchemy_database_uri)
+* [`config_wtf_csrf_enabled`](#-superset--config_wtf_csrf_enabled)
+* [`config_wtf_csrf_exempt_list`](#-superset--config_wtf_csrf_exempt_list)
+* [`config_wtf_csrf_time_limit`](#-superset--config_wtf_csrf_time_limit)
+* [`config_mapbox_api_key`](#-superset--config_mapbox_api_key)
+* [`pgsql_config`](#-superset--pgsql_config)
+* [`python_version`](#-superset--python_version)
+* [`db_drivers`](#-superset--db_drivers)
 
-##### <a name="install_dir"></a>`install_dir`
+##### <a name="-superset--install_dir"></a>`install_dir`
 
 Data type: `String`
 
 The directory that a Python Virtual Environment will be created under and where Superset will be installed
 
-##### <a name="port"></a>`port`
+##### <a name="-superset--version"></a>`version`
+
+Data type: `Variant[Enum['present','absent','latest'], String[1]]`
+
+The version of Apache Superset to install.
+
+Default value: `'present'`
+
+##### <a name="-superset--additional_python_lib"></a>`additional_python_lib`
+
+Data type: `Array[String]`
+
+Array of additional python libraries to install.
+
+Default value: `[]`
+
+##### <a name="-superset--port"></a>`port`
 
 Data type: `Integer`
 
 The port that that superset will be served from. Default: 8088
 
-##### <a name="user"></a>`user`
+##### <a name="-superset--user"></a>`user`
 
 Data type: `String`
 
 The owner of any file/folders created for the Superset installation
 
-##### <a name="load_examples"></a>`load_examples`
+##### <a name="-superset--load_examples"></a>`load_examples`
 
 Data type: `Boolean`
 
 Option for loading example charts and data.  Default: false
 
-##### <a name="manage_python"></a>`manage_python`
+##### <a name="-superset--manage_python"></a>`manage_python`
 
 Data type: `Boolean`
 
 Option for managing the installation of python.  Default: true
 
-##### <a name="manage_webserver"></a>`manage_webserver`
+##### <a name="-superset--manage_webserver"></a>`manage_webserver`
 
 Data type: `Boolean`
 
 Option for managing a gunicorn webserver.  Default: true
 
-##### <a name="manage_db"></a>`manage_db`
+##### <a name="-superset--manage_db"></a>`manage_db`
 
 Data type: `Boolean`
 
 Option for managing a Postgresql db back-end.  Default: true
 
-##### <a name="manage_firewall"></a>`manage_firewall`
+##### <a name="-superset--manage_firewall"></a>`manage_firewall`
 
 Data type: `Boolean`
 
 Option for managing firewall (RHEL8 firwalld).  Default: false
 
-##### <a name="admin_config"></a>`admin_config`
+##### <a name="-superset--admin_username"></a>`admin_username`
 
-Data type: `Hash`
+Data type: `String`
 
-Overide option for superset admin user data (username, first name, last name, email, password).
-Default:
-- username: admin
-- password: password
+Parameter for setting the admin user username
 
-##### <a name="gunicorn_config"></a>`gunicorn_config`
+Default value: `'admin'`
+
+##### <a name="-superset--admin_password"></a>`admin_password`
+
+Data type: `Sensitive[String]`
+
+Sensitive parameter for setting the admin user password
+
+Default value: `Sensitive('password')`
+
+##### <a name="-superset--admin_firstname"></a>`admin_firstname`
+
+Data type: `String`
+
+Parameter for setting the admin user first name
+
+Default value: `'admin'`
+
+##### <a name="-superset--admin_lastname"></a>`admin_lastname`
+
+Data type: `String`
+
+Parameter for setting the admin user last name
+
+Default value: `'admin'`
+
+##### <a name="-superset--admin_email"></a>`admin_email`
+
+Data type: `String`
+
+Parameter for setting the admin user email address
+
+Default value: `'admin@mycompany.com'`
+
+##### <a name="-superset--gunicorn_config"></a>`gunicorn_config`
 
 Data type: `Hash`
 
@@ -129,22 +190,79 @@ Default:
 - limit_request_field_size: 0
 - statsd_host: localhost:8125
 
-##### <a name="app_config"></a>`app_config`
+##### <a name="-superset--manage_config"></a>`manage_config`
 
-Data type: `Hash`
+Data type: `Boolean`
 
-Overide option for overiding the superset default configuration
-Available options include:
-- row_limit
-- superset_webserver_port
-- secret_key
-- sqlalchemy_database_uri
-- wtf_csrf_enabled
-- wtf_csrf_exempt_list
-- wtf_csrf_time_limit
-- mapbox_api_key
+Boolean for setting whether to manage the config file superset_config.py
 
-##### <a name="pgsql_config"></a>`pgsql_config`
+Default value: `true`
+
+##### <a name="-superset--config_row_limit"></a>`config_row_limit`
+
+Data type: `Optional[Integer]`
+
+Optional setting for setting ROW_LIMIT in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_webserver_port"></a>`config_webserver_port`
+
+Data type: `Optional[Integer]`
+
+Optional setting for setting SUPERSET_WEBSERVER_PORT in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_secret_key"></a>`config_secret_key`
+
+Data type: `Sensitive[String]`
+
+Sensitive parameter for setting SECRET_KEY in superset_config.py
+
+Default value: `Sensitive('53cR37K3y')`
+
+##### <a name="-superset--config_sqlalchemy_database_uri"></a>`config_sqlalchemy_database_uri`
+
+Data type: `Optional[String]`
+
+Optional setting for setting SQLALCHEMY_DATABASE_URI in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_wtf_csrf_enabled"></a>`config_wtf_csrf_enabled`
+
+Data type: `Optional[Boolean]`
+
+Optional setting for setting WTF_CSRF_ENABLED in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_wtf_csrf_exempt_list"></a>`config_wtf_csrf_exempt_list`
+
+Data type: `Optional[Array[String]]`
+
+Optional setting for setting WTF_CSRF_EXEMPT_LIST in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_wtf_csrf_time_limit"></a>`config_wtf_csrf_time_limit`
+
+Data type: `Optional[Integer]`
+
+Optional setting for setting WTF_CSRF_TIME_LIMIT in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--config_mapbox_api_key"></a>`config_mapbox_api_key`
+
+Data type: `Optional[String]`
+
+Optional setting for setting MAPBOX_API_KEY in superset_config.py
+
+Default value: `undef`
+
+##### <a name="-superset--pgsql_config"></a>`pgsql_config`
 
 Data type: `Hash`
 
@@ -156,13 +274,13 @@ Available options include:
 - host
 - port
 
-##### <a name="python_version"></a>`python_version`
+##### <a name="-superset--python_version"></a>`python_version`
 
 Data type: `String`
 
 Overide option for setting the Python version if it will be managed by this module
 
-##### <a name="db_drivers"></a>`db_drivers`
+##### <a name="-superset--db_drivers"></a>`db_drivers`
 
 Data type: `Array[String]`
 

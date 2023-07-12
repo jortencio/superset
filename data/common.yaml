@@ -2,6 +2,8 @@
 lookup_options:
   superset::config_secret_key:
     convert_to: "Sensitive"
+  superset::admin_password:
+    convert_to: "Sensitive" 
 
 superset::install_dir: "/home/superset"
 superset::version: '2.1.0'
@@ -16,12 +18,11 @@ superset::manage_webserver: true
 superset::manage_db: true
 superset::manage_firewall: false
 
-superset::admin_config:
-  username: 'admin'
-  password: 'password'
-  firstname: 'admin'
-  lastname: 'admin'
-  email: 'admin@mycompany.com'
+superset::admin_username: 'admin'
+superset::admin_password: 'password'
+superset::admin_firstname: 'admin'
+superset::admin_lastname: 'admin'
+superset::admin_email: 'admin@mycompany.com'
 
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:

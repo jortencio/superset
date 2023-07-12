@@ -72,12 +72,11 @@ superset::user:
 superset::python_version: 
 superset::manage_webserver: 
 
-superset::admin_config:
-  username: 
-  password: 
-  firstname: 
-  lastname: 
-  email: 
+superset::admin_username: 
+superset::admin_password: 
+superset::admin_firstname: 
+superset::admin_lastname: 
+superset::admin_email: 
 
 superset::gunicorn_config:
   install_dir: 
@@ -95,9 +94,15 @@ superset::pgsql_config:
   host:
   port:
 
-superset::app_config:
-  superset_webserver_port: 
-  sqlalchemy_database_uri: 
+superset::manage_config:
+superset::config_row_limit:
+superset::config_webserver_port:
+superset::config_secret_key:
+superset::config_sqlalchemy_database_uri:
+superset::config_wtf_csrf_enabled:
+superset::config_wtf_csrf_exempt_list:
+superset::config_wtf_csrf_time_limit:
+superset::config_mapbox_api_key:
 
 superset::db_drivers:
   - 
@@ -109,13 +114,11 @@ Setup Superset with a configured admin user:
 
 ```
 class { 'superset':
-  admin_config => {
-    username  => '<username>'
-    password  => '<password>'
-    firstname => '<firstname>'
-    lastname  => '<password>'
-    email     => '<email>'
-  }
+    admin_username  => '<username>'
+    admin_password  => '<password>'
+    admin_firstname => '<firstname>'
+    admin_lastname  => '<password>'
+    admin_email     => '<email>'
 }
 ```
 
@@ -127,36 +130,15 @@ class { 'superset':
 }
 ```
 
-Change default Superset config file (superset_config.py):
+Change default database in Superset config file (superset_config.py):
 
 ```
 class { 'superset':
-  
-  app_config => {
-    superset_webserver_port => <webserver_port>
-    sqlalchemy_database_uri => <Database URI>
-  }
-}
-```
-Note: by setting up the app_config parameter in this way you will be overwriting the default app_config completely.  
-
-If you would like to only configure one of the many configuration options and leave others as per the default, this can be done using hiera data and the **lookup()** function
-
-In Hieradata data:
-
-```
-superset::appconfig:
-  sqlalchemy_database_uri: 'sqlite:////path/to/superset.db'
-  
-```
-
-```
-class { 'superset':
-  app_config => lookup('superset::appconfig', merge => hash)
+  config_sqlalchemy_database_uri => <Database URI>
 }
 ```
 
-Note to see a list of supported databases and format for sqlalchemy_database_uri, please see: [Installing Database URI][2]
+Note: To see a list of supported databases and format for sqlalchemy_database_uri, please see: [Installing Database URI][2]
 
 Note 2: When installing on another database, please also configure the superset::db_drivers to include additional database drivers.  By default, the postgresql driver will already be included in this list.
 
@@ -167,7 +149,7 @@ The Superset module has a number of limitations:
 * Though the Python version can be overwritten, Superset module has only been tested on Python 3.8
 * Superset app configuration file limited to options currently specified in the epp template
 * It currently only installs the current latest version of the python Superset library
-* The admin_config parameter is limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 
+* The admin parameters are limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 
   * i.e. Log in as a user with the Admin role, click on *Settings* and under *Security* click on *List User*.  Here you can see the previous admin user and delete the entry)
 
 ## Development

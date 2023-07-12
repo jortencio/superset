@@ -37,11 +37,20 @@
 # @param manage_firewall
 #   Option for managing firewall (RHEL8 firwalld).  Default: false
 #
-# @param admin_config
-#   Overide option for superset admin user data (username, first name, last name, email, password).
-#   Default: 
-#   - username: admin 
-#   - password: password
+# @param admin_username
+#   Parameter for setting the admin user username
+#
+# @param admin_password
+#   Sensitive parameter for setting the admin user password
+#
+# @param admin_firstname
+#   Parameter for setting the admin user first name
+#
+# @param admin_lastname
+#   Parameter for setting the admin user last name
+#
+# @param admin_email
+#   Parameter for setting the admin user email address
 #
 # @param gunicorn_config
 #   Overide option for gunicorn.
@@ -108,7 +117,11 @@ class superset (
   Boolean                                               $manage_webserver,
   Boolean                                               $manage_db,
   Boolean                                               $manage_firewall,
-  Hash                                                  $admin_config,
+  String                                                $admin_username = 'admin',
+  Sensitive[String]                                     $admin_password = Sensitive('password'),
+  String                                                $admin_firstname = 'admin',
+  String                                                $admin_lastname = 'admin',
+  String                                                $admin_email = 'admin@mycompany.com',
   Hash                                                  $gunicorn_config,
   Boolean                                               $manage_config = true,
   Optional[Integer]                                     $config_row_limit = undef,
