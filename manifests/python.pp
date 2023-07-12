@@ -9,12 +9,11 @@ class superset::python {
 
   if $superset::manage_python {
     class { 'python' :
-      ensure              => 'present',
-      version             => $superset::python_version,
-      pip                 => 'present',
-      dev                 => 'present',
-      gunicorn            => 'absent',
-      manage_venv_package => true,
+      ensure   => 'present',
+      version  => $superset::python_version,
+      pip      => 'present',
+      dev      => 'present',
+      gunicorn => 'absent',
     }
 
     if $facts[os][family] == 'Redhat' {
