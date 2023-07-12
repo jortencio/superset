@@ -116,7 +116,7 @@ describe 'superset', :class do
       context 'With manage_python set to true and the admin parameters are set' do
         let(:params) do
           {
-            'manage_firewall': true, 
+            'manage_firewall': true,
             'admin_username': 'test_admin',
             'admin_password': sensitive('test_password'),
             'admin_firstname': 'test_admin',
