@@ -51,15 +51,16 @@ describe 'superset', :class do
         it { is_expected.to contain_file('/home/superset/apache-superset/superset_config.py') }
       end
 
-      context 'With manage_python set to true and the admin_config set' do
+      context 'With manage_python set to true and the admin parameters are set' do
         let(:params) do
-          { 'manage_python': true, admin_config: {
-            username: 'test_admin',
-          password: 'test_password',
-          firstname: 'test_admin',
-          lastname: 'test_admin_password',
-          email: 'test-admin@mycompany.com'
-          } }
+          {
+            'manage_python': true,
+            'admin_username': 'test_admin',
+            'admin_password': sensitive('test_password'),
+            'admin_firstname': 'test_admin',
+            'admin_lastname': 'test_admin_password',
+            'admin_email': 'test-admin@mycompany.com'
+          }
         end
 
         it { is_expected.to compile }
@@ -112,15 +113,16 @@ describe 'superset', :class do
         end
       end
 
-      context 'With manage_python set to true and the admin_config set' do
+      context 'With manage_python set to true and the admin parameters are set' do
         let(:params) do
-          { 'manage_firewall': true, admin_config: {
-            username: 'test_admin',
-          password: 'test_password',
-          firstname: 'test_admin',
-          lastname: 'test_admin_password',
-          email: 'test-admin@mycompany.com'
-          } }
+          {
+            'manage_firewall': true, 
+            'admin_username': 'test_admin',
+            'admin_password': sensitive('test_password'),
+            'admin_firstname': 'test_admin',
+            'admin_lastname': 'test_admin_password',
+            'admin_email': 'test-admin@mycompany.com'
+          }
         end
 
         it { is_expected.to compile }
