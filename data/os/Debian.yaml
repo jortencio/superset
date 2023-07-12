@@ -5,3 +5,5 @@ superset::package_dependencies:
   - 'libffi-dev'
   - 'libsasl2-dev'
   - 'libldap2-dev'
+
+superset::python_version: 'python'
