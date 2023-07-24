@@ -6,4 +6,4 @@ superset::package_dependencies:
   - 'libsasl2-dev'
   - 'libldap2-dev'
 
-superset::python_version: '3.6'
+superset::python_version: '3.8'
