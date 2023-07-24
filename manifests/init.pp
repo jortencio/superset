@@ -99,9 +99,6 @@
 #   - host
 #   - port
 #
-# @param python_version
-#   Overide option for setting the Python version if it will be managed by this module
-#
 # @param db_drivers
 #   Overide option for setting database drivers (python database driver packages) to be installed
 #
@@ -133,7 +130,6 @@ class superset (
   Optional[Integer]                                     $config_wtf_csrf_time_limit = undef,
   Optional[String]                                      $config_mapbox_api_key = undef,
   Hash                                                  $pgsql_config,
-  String                                                $python_version,
   Array[String]                                         $db_drivers,
 ) {
   # lint:endignore
