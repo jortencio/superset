@@ -8,19 +8,20 @@ class superset::python {
   assert_private()
 
   if $superset::manage_python {
-    class { 'python' :
-      ensure   => 'present',
-      version  => $superset::python_version,
-      pip      => 'present',
-      dev      => 'present',
-      gunicorn => 'absent',
-      venv     => 'present',
-    }
+    include python
+    # class { 'python' :
+    #   ensure   => 'present',
+    #   version  => $superset::python_version,
+    #   pip      => 'present',
+    #   dev      => 'present',
+    #   gunicorn => 'absent',
+    #   venv     => 'present',
+    # }
 
-    if $facts[os][family] == 'Redhat' {
-      package { 'python3-wheel':
-        ensure => 'installed',
-      }
-    }
+    # if $facts[os][family] == 'Redhat' {
+    #   package { 'python3-wheel':
+    #     ensure => 'installed',
+    #   }
+    # }
   }
 }
