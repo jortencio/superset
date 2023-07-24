@@ -6,5 +6,6 @@ superset::package_dependencies:
   - 'libsasl2-dev'
   - 'libldap2-dev'
   - 'libpq-dev' # For Postgresql
+  - 'python'
 
-superset::python_version: '3.8'
+superset::python_version: '3.9'
