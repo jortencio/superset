@@ -1,6 +1,7 @@
 <%- |
   String  $install_dir,
   Integer $workers,
+  Enum['sync','eventlet','gevent','tornado','gthread'] $worker_class,
   String  $bind,
   Integer $timeout,
   Integer $limit_request_line,
@@ -12,7 +13,7 @@ export SUPERSET_CONFIG_PATH=<%= $install_dir -%>/apache-superset/superset_config
 
 <%= $install_dir -%>/apache-superset/bin/gunicorn \
       -w <%= $workers -%> \
-      -k gevent \
+      -k <%= $worker_class -%> \
       --timeout <%= $timeout -%> \
       -b  <%= $bind -%> \
       --limit-request-line <%= $limit_request_line -%> \
