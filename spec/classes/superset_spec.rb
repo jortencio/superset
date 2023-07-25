@@ -107,10 +107,9 @@ describe 'superset', :class do
 
         it { is_expected.to contain_class('Python') }
 
-        # if os_facts[:operatingsystem] == 'RedHat'
-        #   it { is_expected.to contain_package('python3-wheel') }
-
-        # end
+        if os_facts[:operatingsystem] == 'RedHat'
+          it { is_expected.to contain_package('python3-wheel') }
+        end
       end
 
       context 'With manage_python set to true and the admin parameters are set' do
