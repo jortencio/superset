@@ -27,6 +27,7 @@ superset::admin_email: 'admin@mycompany.com'
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
 superset::gunicorn_config:
   install_dir: "%{lookup('superset::install_dir')}"
+  worker_class: "gevent"
   workers: 10
   timeout: 120
   bind: "0.0.0.0:%{lookup('superset::port')}"
