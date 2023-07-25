@@ -7,3 +7,4 @@ superset::package_dependencies:
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
   - 'postgresql-devel'
+  - 'python3-wheel'

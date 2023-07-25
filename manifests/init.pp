@@ -102,6 +102,15 @@
 # @param python_version
 #   Overide option for setting the Python version if it will be managed by this module
 #
+# @param python_pip
+#   Parameter for setting whether the ensure python-pip is present, absent or latest
+#
+# @param python_dev
+#   Parameter for setting whether the ensure python-dev is present, absent or latest
+#
+# @param python_venv
+#   Parameter for setting whether the ensure python-venv is present, absent or latest
+#
 # @param db_drivers
 #   Overide option for setting database drivers (python database driver packages) to be installed
 #
@@ -134,6 +143,9 @@ class superset (
   Optional[String]                                      $config_mapbox_api_key = undef,
   Hash                                                  $pgsql_config,
   String                                                $python_version,
+  Enum['present','absent','latest']                     $python_pip = 'present',
+  Enum['present','absent','latest']                     $python_dev = 'present',
+  Enum['present','absent','latest']                     $python_venv = 'absent',
   Array[String]                                         $db_drivers,
 ) {
   # lint:endignore

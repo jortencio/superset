@@ -53,7 +53,10 @@ superset::pgsql_config:
   host: 'localhost'
   port: 5432
 
-superset::python_version: 'python38'
+superset::python_version: '3.8'
+superset::python_pip: 'present'
+superset::python_dev: 'present'
+superset::python_venv: 'absent'
 
 superset::db_drivers:
   - 'psycopg2'

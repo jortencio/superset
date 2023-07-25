@@ -14,6 +14,8 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
           packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+        elsif os_facts[:operatingsystem] == 'Ubuntu'
+          packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
         end
 
         packages.each do |package|
@@ -69,6 +71,8 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
           packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+        elsif os_facts[:operatingsystem] == 'Ubuntu'
+          packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
         end
 
         packages.each do |package|
@@ -109,7 +113,6 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat'
           it { is_expected.to contain_package('python3-wheel') }
-
         end
       end
 
@@ -131,6 +134,8 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
           packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+        elsif os_facts[:operatingsystem] == 'Ubuntu'
+          packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
         end
 
         packages.each do |package|
