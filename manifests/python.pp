@@ -9,12 +9,11 @@ class superset::python {
 
   if $superset::manage_python {
     class { 'python' :
-      ensure   => 'present',
-      version  => $superset::python_version,
-      pip      => 'present',
-      dev      => 'present',
-      gunicorn => 'absent',
-      venv     => 'present',
+      ensure  => 'present',
+      version => $superset::python_version,
+      pip     => $superset::python_pip,
+      dev     => $superset::python_dev,
+      venv    => $superset::python_venv,
     }
   }
 }
