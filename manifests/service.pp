@@ -8,7 +8,6 @@ class superset::service {
   assert_private()
 
   if $superset::manage_webserver {
-
     file { '/bin/superset.gunicorn':
       ensure  => file,
       owner   => $superset::user,
@@ -25,10 +24,12 @@ class superset::service {
       content => epp('superset/superset.service.epp', { user => $superset::user }),
     }
 
-    service {'superset':
+    service { 'superset':
       ensure    => 'running',
-      subscribe => [File['/bin/superset.gunicorn'],
-                    File['/usr/lib/systemd/system/superset.service']]
+      subscribe => [
+        File['/bin/superset.gunicorn'],
+        File['/usr/lib/systemd/system/superset.service'],
+      ],
     }
   }
 }

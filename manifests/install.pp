@@ -5,9 +5,8 @@
 # @api private
 # 
 class superset::install {
-
   group { $superset::user :
-    ensure => present
+    ensure => present,
   }
 
   user { $superset::user:
@@ -24,7 +23,7 @@ class superset::install {
     owner   => $superset::user,
     group   => $superset::user,
     mode    => '0755',
-    content => epp('superset/superset.sh.epp',{ superset_dir => $superset_venv_dir}),
+    content => epp('superset/superset.sh.epp', { superset_dir => $superset_venv_dir }),
   }
 
   # Create external fact for the install directory
@@ -53,25 +52,25 @@ class superset::install {
     venv_dir   => $superset_venv_dir,
     systempkgs => false,
   }
-  
+
   # Update pip before install
   python::pip { 'pip':
-      ensure     => 'latest',
-      pkgname    => 'pip',
-      virtualenv => $superset_venv_dir,
-      owner      => $superset::user,
-      group      => $superset::user,
+    ensure     => 'present',
+    pkgname    => 'pip',
+    virtualenv => $superset_venv_dir,
+    owner      => $superset::user,
+    group      => $superset::user,
   }
 
   # Update wheel before install
   python::pip { 'wheel':
-      ensure     => 'latest',
-      pkgname    => 'wheel',
-      virtualenv => $superset_venv_dir,
-      owner      => $superset::user,
-      group      => $superset::user,
+    ensure     => 'present',
+    pkgname    => 'wheel',
+    virtualenv => $superset_venv_dir,
+    owner      => $superset::user,
+    group      => $superset::user,
   }
-  
+
   # Install apache superset
   python::pip { 'apache-superset':
     ensure     => $superset::version,
@@ -81,14 +80,6 @@ class superset::install {
     group      => $superset::user,
   }
 
-  # Lock version of MarkupSafe due later versions breaking Superset https://github.com/apache/superset/issues/19150
-  # python::pip { 'MarkupSafe':
-  #     ensure     => '2.0.1',
-  #     pkgname    => 'MarkupSafe',
-  #     virtualenv => $superset_venv_dir,
-  #     owner      => $superset::user,
-  #     group      => $superset::user,
-  # }
   $superset::additional_python_lib.each | String $pkgname | {
     python::pip { $pkgname:
       ensure     => 'present',

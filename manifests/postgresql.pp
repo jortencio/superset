@@ -5,7 +5,6 @@
 # @api private
 #
 class superset::postgresql {
-
   if $superset::manage_db {
     class { 'postgresql::server':
     }
