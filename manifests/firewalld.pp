@@ -14,6 +14,5 @@ class superset::firewalld {
     zone     => 'public',
     port     => $superset::port,
     protocol => 'tcp',
-    }
-
+  }
 }
