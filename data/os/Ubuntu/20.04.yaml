@@ -7,4 +7,5 @@ superset::package_dependencies:
   - 'libldap2-dev'
   - 'libpq-dev' # For Postgresql
 
+superset::python_version: '3.8'
 superset::python_venv: 'present'
