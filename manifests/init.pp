@@ -90,14 +90,20 @@
 # @param config_mapbox_api_key
 #  Optional setting for setting MAPBOX_API_KEY in superset_config.py
 #
-# @param pgsql_config
-#   Overide option for overiding the default postgresql configuration
-#   Available options include:
-#   - database
-#   - user
-#   - password
-#   - host
-#   - port
+# @param pgsql_database
+#   Overide option for overiding the default postgresql database 
+#
+# @param pgsql_user
+#   Overide option for overiding the default postgresql user
+#
+# @param pgsql_password
+#   Overide option for overiding the default postgresql password 
+#
+# @param pgsql_host
+#   Overide option for overiding the default postgresql host
+#
+# @param pgsql_port
+#   Overide option for overiding the default postgresql port
 #
 # @param python_version
 #   Overide option for setting the Python version if it will be managed by this module
@@ -141,7 +147,11 @@ class superset (
   Optional[Array[String]]                               $config_wtf_csrf_exempt_list = undef,
   Optional[Integer]                                     $config_wtf_csrf_time_limit = undef,
   Optional[String]                                      $config_mapbox_api_key = undef,
-  Hash                                                  $pgsql_config,
+  String                                                $pgsql_database = 'superset',
+  String                                                $pgsql_user = 'superset',
+  Sensitive[String]                                     $pgsql_password = Sensitive('password'),
+  String                                                $pgsql_host = 'localhost',
+  Integer                                               $pgsql_port = 5432,
   String                                                $python_version,
   Enum['present','absent','latest']                     $python_pip = 'present',
   Enum['present','absent','latest']                     $python_dev = 'present',

@@ -3,7 +3,9 @@ lookup_options:
   superset::config_secret_key:
     convert_to: "Sensitive"
   superset::admin_password:
-    convert_to: "Sensitive" 
+    convert_to: "Sensitive"
+  superset::pgsql_password:
+    convert_to: "Sensitive"
 
 superset::install_dir: "/home/superset"
 superset::version: '2.1.0'
@@ -39,19 +41,17 @@ superset::manage_config: true
 superset::config_row_limit: ~
 superset::config_webserver_port: "%{alias('superset::port')}"
 superset::config_secret_key: '53cR37K3y'
-superset::config_sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+superset::config_sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_user')}:%{lookup('superset::pgsql_password')}@%{lookup('superset::pgsql_host')}:%{lookup('superset::pgsql_port')}/%{lookup('superset::pgsql_database')}"
 superset::config_wtf_csrf_enabled: ~
 superset::config_wtf_csrf_exempt_list: ~
 superset::config_wtf_csrf_time_limit: ~
 superset::config_mapbox_api_key: ~
 
-
-superset::pgsql_config:
-  database: 'superset'
-  user: 'superset'
-  password: 'password'
-  host: 'localhost'
-  port: 5432
+superset::pgsql_database: 'superset'
+superset::pgsql_user: 'superset'
+superset::pgsql_password: 'password'
+superset::pgsql_host: 'localhost'
+superset::pgsql_port: 5432
 
 superset::python_version: 'python38'
 superset::python_pip: 'present'
