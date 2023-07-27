@@ -9,9 +9,9 @@ class superset::postgresql {
     class { 'postgresql::server':
     }
 
-    postgresql::server::db { $superset::pgsql_config[database]:
-      user     => $superset::pgsql_config[user],
-      password => postgresql::postgresql_password($superset::pgsql_config[user], $superset::pgsql_config[password]),
+    postgresql::server::db { $superset::pgsql_database:
+      user     => $superset::pgsql_user,
+      password => postgresql::postgresql_password($superset::pgsql_user, $superset::pgsql_password.unwrap),
     }
   }
 }

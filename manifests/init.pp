@@ -52,16 +52,29 @@
 # @param admin_email
 #   Parameter for setting the admin user email address
 #
-# @param gunicorn_config
-#   Overide option for gunicorn.
-#   Default:
-#   - install_dir: "%{lookup('superset::install_dir')}"
-#   - workers: 10
-#   - timeout: 120
-#   - bind: "0.0.0.0:%{lookup('superset::port')}"
-#   - limit_request_line: 0
-#   - limit_request_field_size: 0
-#   - statsd_host: localhost:8125
+# @param gunicorn_install_dir
+#   Overide for gunicorn install_dir option.
+#
+# @param gunicorn_workers
+#   Overide for gunicorn workers option.
+#
+# @param gunicorn_worker_class
+#   Overide for gunicorn worker_class option.
+#
+# @param gunicorn_timeout
+#   Overide for gunicorn timeout option.
+#
+# @param gunicorn_bind
+#   Overide for gunicorn bind option.
+#
+# @param gunicorn_limit_request_line
+#   Overide for gunicorn limit_request_line option.
+#
+# @param gunicorn_limit_request_field_size
+#   Overide for gunicorn limit_request_field_size option.
+#
+# @param gunicorn_statsd_host
+#   Overide for gunicorn statsd_host option.
 #
 # @param manage_config
 #  Boolean for setting whether to manage the config file superset_config.py
@@ -90,14 +103,20 @@
 # @param config_mapbox_api_key
 #  Optional setting for setting MAPBOX_API_KEY in superset_config.py
 #
-# @param pgsql_config
-#   Overide option for overiding the default postgresql configuration
-#   Available options include:
-#   - database
-#   - user
-#   - password
-#   - host
-#   - port
+# @param pgsql_database
+#   Overide option for overiding the default postgresql database 
+#
+# @param pgsql_user
+#   Overide option for overiding the default postgresql user
+#
+# @param pgsql_password
+#   Overide option for overiding the default postgresql password 
+#
+# @param pgsql_host
+#   Overide option for overiding the default postgresql host
+#
+# @param pgsql_port
+#   Overide option for overiding the default postgresql port
 #
 # @param python_version
 #   Overide option for setting the Python version if it will be managed by this module
@@ -116,22 +135,29 @@
 #
 # lint:ignore:parameter_order
 class superset (
-  String                                                $install_dir,
-  Variant[Enum['present','absent','latest'], String[1]] $version = 'present',
+  String                                                $install_dir = '/home/superset',
+  Variant[Enum['present','absent','latest'], String[1]] $version = '2.1.0',
   Array[String]                                         $additional_python_lib = [],
-  Integer                                               $port,
-  String                                                $user,
-  Boolean                                               $load_examples,
-  Boolean                                               $manage_python,
-  Boolean                                               $manage_webserver,
-  Boolean                                               $manage_db,
-  Boolean                                               $manage_firewall,
+  Integer                                               $port = 8088,
+  String                                                $user = 'superset',
+  Boolean                                               $load_examples = false,
+  Boolean                                               $manage_python = true,
+  Boolean                                               $manage_webserver = true,
+  Boolean                                               $manage_db = true,
+  Boolean                                               $manage_firewall = false,
   String                                                $admin_username = 'admin',
   Sensitive[String]                                     $admin_password = Sensitive('password'),
   String                                                $admin_firstname = 'admin',
   String                                                $admin_lastname = 'admin',
   String                                                $admin_email = 'admin@mycompany.com',
-  Hash                                                  $gunicorn_config,
+  String                                                $gunicorn_install_dir = '/home/superset',
+  String                                                $gunicorn_worker_class = 'gevent',
+  Integer                                               $gunicorn_workers = 10,
+  Integer                                               $gunicorn_timeout = 120,
+  String                                                $gunicorn_bind = '0.0.0.0:8088',
+  Integer                                               $gunicorn_limit_request_line = 0,
+  Integer                                               $gunicorn_limit_request_field_size = 0,
+  String                                                $gunicorn_statsd_host = 'localhost:8125',
   Boolean                                               $manage_config = true,
   Optional[Integer]                                     $config_row_limit = undef,
   Optional[Integer]                                     $config_webserver_port = undef,
@@ -141,12 +167,16 @@ class superset (
   Optional[Array[String]]                               $config_wtf_csrf_exempt_list = undef,
   Optional[Integer]                                     $config_wtf_csrf_time_limit = undef,
   Optional[String]                                      $config_mapbox_api_key = undef,
-  Hash                                                  $pgsql_config,
-  String                                                $python_version,
+  String                                                $pgsql_database = 'superset',
+  String                                                $pgsql_user = 'superset',
+  Sensitive[String]                                     $pgsql_password = Sensitive('password'),
+  String                                                $pgsql_host = 'localhost',
+  Integer                                               $pgsql_port = 5432,
+  String                                                $python_version = 'python38',
   Enum['present','absent','latest']                     $python_pip = 'present',
   Enum['present','absent','latest']                     $python_dev = 'present',
   Enum['present','absent','latest']                     $python_venv = 'absent',
-  Array[String]                                         $db_drivers,
+  Array[String]                                         $db_drivers = ['psycopg2'],
 ) {
   # lint:endignore
 

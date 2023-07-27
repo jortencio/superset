@@ -3,7 +3,9 @@ lookup_options:
   superset::config_secret_key:
     convert_to: "Sensitive"
   superset::admin_password:
-    convert_to: "Sensitive" 
+    convert_to: "Sensitive"
+  superset::pgsql_password:
+    convert_to: "Sensitive"
 
 superset::install_dir: "/home/superset"
 superset::version: '2.1.0'
@@ -25,33 +27,30 @@ superset::admin_lastname: 'admin'
 superset::admin_email: 'admin@mycompany.com'
 
 # Default gunicorn as defined in Superset Documentation https://superset.apache.org/docs/installation/configuring-superset
-superset::gunicorn_config:
-  install_dir: "%{lookup('superset::install_dir')}"
-  worker_class: "gevent"
-  workers: 10
-  timeout: 120
-  bind: "0.0.0.0:%{lookup('superset::port')}"
-  limit_request_line: 0
-  limit_request_field_size: 0
-  statsd_host: localhost:8125
+superset::gunicorn_install_dir: "/home/superset"
+superset::gunicorn_worker_class: "gevent"
+superset::gunicorn_workers: 10
+superset::gunicorn_timeout: 120
+superset::gunicorn_bind: "0.0.0.0:%{lookup('superset::port')}"
+superset::gunicorn_limit_request_line: 0
+superset::gunicorn_limit_request_field_size: 0
+superset::gunicorn_statsd_host: localhost:8125
 
 superset::manage_config: true
 superset::config_row_limit: ~
 superset::config_webserver_port: "%{alias('superset::port')}"
 superset::config_secret_key: '53cR37K3y'
-superset::config_sqlalchemy_database_uri: "postgresql://%{lookup('superset::pgsql_config.user')}:%{lookup('superset::pgsql_config.password')}@%{lookup('superset::pgsql_config.host')}:%{lookup('superset::pgsql_config.port')}/%{lookup('superset::pgsql_config.database')}"
+superset::config_sqlalchemy_database_uri: ~
 superset::config_wtf_csrf_enabled: ~
 superset::config_wtf_csrf_exempt_list: ~
 superset::config_wtf_csrf_time_limit: ~
 superset::config_mapbox_api_key: ~
 
-
-superset::pgsql_config:
-  database: 'superset'
-  user: 'superset'
-  password: 'password'
-  host: 'localhost'
-  port: 5432
+superset::pgsql_database: 'superset'
+superset::pgsql_user: 'superset'
+superset::pgsql_password: 'password'
+superset::pgsql_host: 'localhost'
+superset::pgsql_port: 5432
 
 superset::python_version: 'python38'
 superset::python_pip: 'present'

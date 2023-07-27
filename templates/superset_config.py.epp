@@ -24,8 +24,12 @@ SECRET_KEY = <%= "\'${superset::config_secret_key}\'" %>
 # Note that the connection information to connect to the datasources
 # you want to explore are managed directly in the web UI
 # SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
+<% if $superset::manage_db { -%>
+SQLALCHEMY_DATABASE_URI = <%= "\'postgresql://${superset::pgsql_user}:${superset::pgsql_password.unwrap}@${superset::pgsql_host}:${superset::pgsql_port}/${superset::pgsql_database}\'" %>
+<% } else { %>
 <% if $superset::config_sqlalchemy_database_uri { -%>
 SQLALCHEMY_DATABASE_URI = <%= "\'${superset::config_sqlalchemy_database_uri}\'" %>
+<% } %> 
 <% } %> 
 
 # Flask-WTF flag for CSRF
