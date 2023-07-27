@@ -13,7 +13,16 @@ class superset::service {
       owner   => $superset::user,
       group   => $superset::user,
       mode    => '0755',
-      content => epp('superset/superset.gunicorn.epp',$superset::gunicorn_config),
+      content => epp('superset/superset.gunicorn.epp', {
+          install_dir              => $superset::gunicorn_install_dir,
+          workers                  => $superset::gunicorn_workers,
+          worker_class             => $superset::gunicorn_worker_class,
+          bind                     => $superset::gunicorn_bind,
+          timeout                  => $superset::gunicorn_timeout,
+          limit_request_line       => $superset::gunicorn_limit_request_line,
+          limit_request_field_size => $superset::gunicorn_limit_request_field_size,
+          statsd_host              => $superset::gunicorn_statsd_host,
+      }),
     }
 
     file { '/usr/lib/systemd/system/superset.service':
