@@ -1,0 +1,4 @@
+{
+    "testOnSave.enabled": true,
+    "testOnSave.testCommand": "pdk validate && pdk test unit"
+}
