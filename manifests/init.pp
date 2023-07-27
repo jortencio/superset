@@ -151,7 +151,7 @@ class superset (
   String                                                $admin_lastname = 'admin',
   String                                                $admin_email = 'admin@mycompany.com',
   String                                                $gunicorn_install_dir = '/home/superset',
-  String                                                $gunicorn_worker_class = 'gevent',
+  Enum['sync','eventlet','gevent','tornado']            $gunicorn_worker_class = 'gevent',
   Integer                                               $gunicorn_workers = 10,
   Integer                                               $gunicorn_timeout = 120,
   String                                                $gunicorn_bind = '0.0.0.0:8088',

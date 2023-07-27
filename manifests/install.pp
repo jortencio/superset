@@ -92,7 +92,11 @@ class superset::install {
 
   # Install python libraries for managing the webserver
   if $superset::manage_webserver {
-    $webserver_venv_pip_pkg = ['gunicorn', 'gevent']
+    if $superset::gunicorn_worker_class == 'sync' {
+      $webserver_venv_pip_pkg = ['gunicorn']
+    } else {
+      $webserver_venv_pip_pkg = ['gunicorn', $superset::gunicorn_worker_class]
+    }
     $webserver_venv_pip_pkg.each | String $pkgname | {
       python::pip { $pkgname:
         ensure     => 'present',

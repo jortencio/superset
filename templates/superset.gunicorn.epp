@@ -1,7 +1,7 @@
 <%- |
   String  $install_dir,
   Integer $workers,
-  Enum['sync','eventlet','gevent','tornado','gthread'] $worker_class,
+  Enum['sync','eventlet','gevent','tornado'] $worker_class,
   String  $bind,
   Integer $timeout,
   Integer $limit_request_line,
