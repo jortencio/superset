@@ -66,11 +66,11 @@ This module supports the use of Hiera data for setting parameters.  Please refer
 
 ```
 class { 'superset':
-    admin_username  => '<username>'
-    admin_password  => '<password>'
-    admin_firstname => '<firstname>'
-    admin_lastname  => '<password>'
-    admin_email     => '<email>'
+    admin_username  => '<username>',
+    admin_password  => '<password>',
+    admin_firstname => '<firstname>',
+    admin_lastname  => '<password>',
+    admin_email     => '<email>',
 }
 ```
 
@@ -78,7 +78,7 @@ class { 'superset':
 
 ```
 class { 'superset':
-  manage_firewall => true
+  manage_firewall => true,
 }
 ```
 
@@ -86,8 +86,8 @@ class { 'superset':
 
 ```
 class { 'superset':
-  manage_db                      => false
-  config_sqlalchemy_database_uri => <Database URI>
+  manage_db                      => false,
+  config_sqlalchemy_database_uri => <Database URI>,
 }
 ```
 
@@ -101,7 +101,7 @@ To set sensitive data such as admin the postgresql DB password, use the Sensitiv
 
 ```
 class { 'superset':
-  pgsql_password => Sensitive('<password>')
+  pgsql_password => Sensitive('<password>'),
 }
 ```
 
@@ -113,6 +113,23 @@ lookup_options:
     convert_to: "Sensitive"
 
 superset::pgsql_password: '<password>'
+```
+
+#### Setting a gunicorn worker class:
+
+In class declaration:
+
+```
+class { 'superset':
+  gunicorn_worker_class => 'tornado',
+}
+```
+
+In Hiera:
+
+```
+---
+superset::gunicorn_worker_class: "tornado"
 ```
 
 
