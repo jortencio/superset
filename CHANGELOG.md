@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 **Known Issues**
 * Doesn't delete previous admin user when the admin user is updated in hiera
-* Gunicorn worker classes `gevent` and `eventlet` currently not working due to `select.epoll()` issues
+* Gunicorn worker classes `gevent` and `eventlet` currently not working due to `select.epoll()` issues.  Recommend using `tornado` or `sync` worker class for this version.
 
 ## Release 0.1.1
 **Bugfixes**
