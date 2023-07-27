@@ -57,56 +57,7 @@ include superset
 
 ## Usage
 
-This module supports the use of Hiera data for setting parameters.  The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details):
-
-```
----
-superset::install_dir: 
-superset::port: 
-superset::manage_python: 
-superset::manage_firewall: 
-superset::manage_webserver: 
-superset::manage_db: 
-superset::load_examples: 
-superset::user: 
-superset::python_version: 
-superset::manage_webserver: 
-
-superset::admin_username: 
-superset::admin_password: 
-superset::admin_firstname: 
-superset::admin_lastname: 
-superset::admin_email: 
-
-superset::gunicorn_config:
-  install_dir: 
-  workers: 
-  timeout: 
-  bind: 
-  limit_request_line: 
-  limit_request_field_size: 
-  statsd_host: 
-
-superset::pgsql_config:
-  database:
-  user:
-  password:
-  host:
-  port:
-
-superset::manage_config:
-superset::config_row_limit:
-superset::config_webserver_port:
-superset::config_secret_key:
-superset::config_sqlalchemy_database_uri:
-superset::config_wtf_csrf_enabled:
-superset::config_wtf_csrf_exempt_list:
-superset::config_wtf_csrf_time_limit:
-superset::config_mapbox_api_key:
-
-superset::db_drivers:
-  - 
-```
+This module supports the use of Hiera data for setting parameters.  Please refer to REFERENCE.md for a list of configurable parameters
 
 Common Usage:
 
@@ -134,6 +85,7 @@ Change default database in Superset config file (superset_config.py):
 
 ```
 class { 'superset':
+  manage_db                      => false
   config_sqlalchemy_database_uri => <Database URI>
 }
 ```
@@ -145,10 +97,10 @@ Note 2: When installing on another database, please also configure the superset:
 ## Limitations
 
 The Superset module has a number of limitations:
-* It has only been tested to work on RedHat 8
+* It has only been tested to work on RedHat 8, Ubuntu 20.04
 * Though the Python version can be overwritten, Superset module has only been tested on Python 3.8
 * Superset app configuration file limited to options currently specified in the epp template
-* It currently only installs the current latest version of the python Superset library
+* It is currently only to install the current latest version of the python Superset library.  As at this release it is version 2.1.0
 * The admin parameters are limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 
   * i.e. Log in as a user with the Admin role, click on *Settings* and under *Security* click on *List User*.  Here you can see the previous admin user and delete the entry)
 
