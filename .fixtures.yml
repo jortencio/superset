@@ -5,16 +5,16 @@ fixtures:
   forge_modules:
     stdlib: 
       repo: "puppetlabs/stdlib"
-      ref: "8.6.0"
+      ref: "9.2.0"
     python: 
       repo: "puppet/python"
-      ref: "6.4.0"
+      ref: "7.0.0"
     epel: 
       repo: "puppet/epel"
       ref: "4.1.0"
     puppetlabs-yumrepo_core: 
       repo: "puppetlabs/yumrepo_core"
-      ref: "1.2.0"
+      ref: "2.0.0"
     firewalld: 
       repo: "puppet/firewalld"
       ref: "4.5.1"
@@ -23,11 +23,14 @@ fixtures:
       ref: "1.3.0"
     postgresql: 
       repo: "puppetlabs/postgresql"
-      ref: "7.5.0"
+      ref: "9.1.0"
+    systemd:
+      repo: "puppet/systemd"
+      ref: "5.2.0"
     apt: 
       repo: "puppetlabs/apt"
-      ref: "9.0.2"
+      ref: "9.1.0"
     concat: 
       repo: "puppetlabs/concat"
-      ref: "8.0.0"
+      ref: "9.0.0"
 

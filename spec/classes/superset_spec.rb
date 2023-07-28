@@ -5,7 +5,13 @@ require 'spec_helper'
 describe 'superset', :class do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { os_facts }
+      let(:facts) do
+        os_facts.merge(
+          {
+            service_provider: 'systemd', # Postgresql module requires this fact.  Sourced from service_provider fact in stdlib module
+          },
+        )
+      end
 
       context 'With default values (no parameters set)' do
         it { is_expected.to compile }
