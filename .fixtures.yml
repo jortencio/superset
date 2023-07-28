@@ -24,6 +24,9 @@ fixtures:
     postgresql: 
       repo: "puppetlabs/postgresql"
       ref: "9.1.0"
+    systemd:
+      repo: "puppet/systemd"
+      ref: "5.2.0"
     apt: 
       repo: "puppetlabs/apt"
       ref: "9.1.0"
