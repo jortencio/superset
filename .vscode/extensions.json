@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "puppet.puppet-vscode",
-    "rebornix.Ruby",
-    "andifin.testonsave"
+    "Shopify.ruby-lsp"
   ]
 }
