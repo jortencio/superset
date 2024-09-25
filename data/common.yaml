@@ -50,7 +50,7 @@ superset::pgsql_password: 'password'
 superset::pgsql_host: 'localhost'
 superset::pgsql_port: 5432
 
-superset::python_version: 'python38'
+superset::python_version: 'python39'
 superset::python_pip: 'present'
 superset::python_dev: 'present'
 superset::python_venv: 'absent'
