@@ -26,7 +26,7 @@ This Puppet module is used to do basic installation and configuration of Apache 
 Superset module installs and configures the following:
 
 * Superset dependencies
-* Python 3.8 (Optional)
+* Python (Optional)
 * Creates a Python virtual environment and installs dependent Python Libraries (including superset) within it
 * Configures Firewalld on RHEL (Optional)
 * Installs and configures a basic Postgresql Database as a Superset Back-end (Optional)
@@ -137,7 +137,7 @@ superset::gunicorn_worker_class: "tornado"
 
 The Superset module has a number of limitations:
 * It has only been tested to work on RedHat 8, Ubuntu 20.04
-* Though the Python version can be overwritten, Superset module has only been tested on Python 3.8
+* Though the Python version can be overwritten, Superset module has been tested on Python 3.9
 * Superset app configuration file limited to options currently specified in the epp template
 * It is currently only to install the current latest version of the python Superset library.  As at this release it is version 2.1.0
 * The admin parameters are limited in that any previously configured admin users will remain in Superset's DB and will need to be removed manually within the Superset 

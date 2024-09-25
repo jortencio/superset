@@ -388,7 +388,7 @@ Data type: `String`
 
 Overide option for setting the Python version if it will be managed by this module
 
-Default value: `'python38'`
+Default value: `'python39'`
 
 ##### <a name="-superset--python_pip"></a>`python_pip`
 

@@ -8,7 +8,7 @@ fixtures:
       ref: "9.2.0"
     python: 
       repo: "puppet/python"
-      ref: "7.0.0"
+      ref: "7.3.0"
     epel: 
       repo: "puppet/epel"
       ref: "4.1.0"
