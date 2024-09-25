@@ -40,6 +40,8 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('psycopg2') }
+        it { is_expected.to contain_Python__Pip('pip') }
+        it { is_expected.to contain_Python__Pip('wheel') }
 
         it { is_expected.to contain_class('superset::config') }
 
@@ -97,6 +99,8 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('psycopg2') }
+        it { is_expected.to contain_Python__Pip('pip') }
+        it { is_expected.to contain_Python__Pip('wheel') }
 
         it { is_expected.to contain_class('superset::config') }
 
@@ -160,6 +164,8 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('psycopg2') }
+        it { is_expected.to contain_Python__Pip('pip') }
+        it { is_expected.to contain_Python__Pip('wheel') }
 
         it { is_expected.to contain_class('superset::config') }
 
