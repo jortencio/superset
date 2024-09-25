@@ -172,7 +172,7 @@ class superset (
   Sensitive[String]                                     $pgsql_password = Sensitive('password'),
   String                                                $pgsql_host = 'localhost',
   Integer                                               $pgsql_port = 5432,
-  String                                                $python_version = 'python38',
+  String                                                $python_version = 'python39',
   Enum['present','absent','latest']                     $python_pip = 'present',
   Enum['present','absent','latest']                     $python_dev = 'present',
   Enum['present','absent','latest']                     $python_venv = 'absent',
