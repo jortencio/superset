@@ -8,10 +8,8 @@ lookup_options:
     convert_to: "Sensitive"
 
 superset::install_dir: "/home/superset"
-superset::version: '2.1.0'
-superset::additional_python_lib:
-  - 'sqlparse==0.4.3'
-  - 'marshmallow-enum==1.5.1'
+superset::version: '4.0.2'
+superset::additional_python_lib: []
 superset::port: 8088
 superset::user: 'superset'
 superset::load_examples: false
