@@ -1,6 +1,4 @@
 ---
-superset::python_version: '3.9'
-
 superset::db_drivers:
   - 'psycopg2'
 
