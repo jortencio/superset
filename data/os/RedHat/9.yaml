@@ -1,5 +1,5 @@
 ---
-superset::python_version: '3.12'
+superset::python_version: '3.11'
 
 superset::package_dependencies:
   - 'gcc'
@@ -9,7 +9,7 @@ superset::package_dependencies:
   - 'cyrus-sasl-devel'
   - 'openldap-devel'
   - 'postgresql-devel'
-  - 'python3.12-wheel'
+  - 'python3.11-wheel'
 
 superset::db_drivers:
   - 'psycopg2-binary'
