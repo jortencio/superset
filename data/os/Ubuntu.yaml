@@ -7,5 +7,8 @@ superset::package_dependencies:
   - 'libldap2-dev'
   - 'libpq-dev' # For Postgresql
 
-superset::python_version: '3.9'
+superset::python_version: '3.10'
 superset::python_venv: 'present'
+
+superset::db_drivers:
+  - 'psycopg2-binary'

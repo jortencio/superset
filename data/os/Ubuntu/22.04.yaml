@@ -1,5 +1,0 @@
----
-superset::python_version: '3.10'
-
-superset::db_drivers:
-  - 'psycopg2-binary'

@@ -23,10 +23,10 @@ describe 'superset', :class do
           dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '22.04'
-                        [ 'psycopg2-binary' ]
-                      else
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
                         [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
                       end
         end
 
@@ -91,10 +91,10 @@ describe 'superset', :class do
           dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '22.04'
-                        [ 'psycopg2-binary' ]
-                      else
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
                         [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
                       end
         end
 
@@ -165,10 +165,10 @@ describe 'superset', :class do
           dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '22.04'
-                        [ 'psycopg2-binary' ]
-                      else
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
                         [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
                       end
         end
 
