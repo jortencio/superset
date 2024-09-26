@@ -1,5 +1,9 @@
 ---
-superset::python_version: '3.9'
+superset::python_version: '3.8'
+superset::version: '2.1.3'
+superset::additional_python_lib:
+  - 'Flask==2.2.3'
+  - 'marshmallow-enum==1.5.1'
 
 superset::db_drivers:
   - 'psycopg2'
