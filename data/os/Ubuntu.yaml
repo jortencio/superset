@@ -5,6 +5,7 @@ superset::package_dependencies:
   - 'libffi-dev'
   - 'libsasl2-dev'
   - 'libldap2-dev'
+  - 'libpq-dev' # For Postgresql
 
 superset::python_version: '3.9'
 superset::python_venv: 'present'
