@@ -10,4 +10,6 @@ superset::package_dependencies:
   - 'openldap-devel'
   - 'postgresql-devel'
   - 'python3.12-wheel'
-  - 'libpq-devel'
+
+superset::db_drivers:
+  - 'psycopg2-binary'
