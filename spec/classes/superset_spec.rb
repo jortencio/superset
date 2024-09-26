@@ -20,8 +20,14 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
           packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+          dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
+                        [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
+                      end
         end
 
         packages.each do |package|
@@ -39,9 +45,12 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
-        it { is_expected.to contain_Python__Pip('psycopg2') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        dbdrivers.each do |dbdriver|
+          it { is_expected.to contain_Python__Pip(dbdriver) }
+        end
 
         it { is_expected.to contain_class('superset::config') }
 
@@ -79,8 +88,14 @@ describe 'superset', :class do
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
           packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+          dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
+                        [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
+                      end
         end
 
         packages.each do |package|
@@ -98,9 +113,12 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
-        it { is_expected.to contain_Python__Pip('psycopg2') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        dbdrivers.each do |dbdriver|
+          it { is_expected.to contain_Python__Pip(dbdriver) }
+        end
 
         it { is_expected.to contain_class('superset::config') }
 
@@ -143,9 +161,15 @@ describe 'superset', :class do
         it { is_expected.to contain_class('superset::packages') }
 
         if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
-          packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+          packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
+          dbdrivers = [ 'psycopg2' ]
         elsif os_facts[:operatingsystem] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
+          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
+                        [ 'psycopg2' ]
+                      else
+                        [ 'psycopg2-binary' ]
+                      end
         end
 
         packages.each do |package|
@@ -163,9 +187,12 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('apache-superset') }
         it { is_expected.to contain_Python__Pip('gevent') }
         it { is_expected.to contain_Python__Pip('gunicorn') }
-        it { is_expected.to contain_Python__Pip('psycopg2') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        dbdrivers.each do |dbdriver|
+          it { is_expected.to contain_Python__Pip(dbdriver) }
+        end
 
         it { is_expected.to contain_class('superset::config') }
 

@@ -1,0 +1,14 @@
+---
+superset::package_dependencies:
+  - 'build-essential'
+  - 'libssl-dev'
+  - 'libffi-dev'
+  - 'libsasl2-dev'
+  - 'libldap2-dev'
+  - 'libpq-dev' # For Postgresql
+
+superset::python_version: '3.10'
+superset::python_venv: 'present'
+
+superset::db_drivers:
+  - 'psycopg2-binary'
