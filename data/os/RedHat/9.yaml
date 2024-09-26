@@ -10,3 +10,4 @@ superset::package_dependencies:
   - 'openldap-devel'
   - 'postgresql-devel'
   - 'python3.12-wheel'
+  - 'libpq-devel'
