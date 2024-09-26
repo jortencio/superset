@@ -10,7 +10,7 @@ superset::package_dependencies:
   - 'openldap-devel'
   - 'postgresql-devel'
   - 'python3.11-wheel'
-  - 'cmake'
+  - 'python3.11-devel'
 
 superset::db_drivers:
   - 'psycopg2-binary'
