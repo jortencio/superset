@@ -18,16 +18,24 @@ describe 'superset', :class do
 
         it { is_expected.to contain_class('superset::packages') }
 
-        if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
-          packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
-          dbdrivers = [ 'psycopg2' ]
-        elsif os_facts[:operatingsystem] == 'Ubuntu'
+        if os_facts[:os]['name'] == 'RedHat'
+          additional_python_lib = []
+          if os_facts[:os]['release']['major'] == '8'
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3-wheel']
+            dbdrivers = [ 'psycopg2' ]
+          else
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3.11-wheel', 'python3.11-devel']
+            dbdrivers = [ 'psycopg2-binary' ]
+          end
+        elsif os_facts[:os]['name'] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
-                        [ 'psycopg2' ]
-                      else
-                        [ 'psycopg2-binary' ]
-                      end
+          if os_facts[:os]['release']['major'] == '20.04'
+            dbdrivers = [ 'psycopg2' ]
+            additional_python_lib = [ 'Flask==2.2.3', 'marshmallow-enum==1.5.1']
+          else
+            dbdrivers = [ 'psycopg2-binary' ]
+            additional_python_lib = []
+          end
         end
 
         packages.each do |package|
@@ -47,6 +55,10 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        additional_python_lib.each do |lib|
+          it { is_expected.to contain_Python__Pip(lib) }
+        end
 
         dbdrivers.each do |dbdriver|
           it { is_expected.to contain_Python__Pip(dbdriver) }
@@ -86,16 +98,24 @@ describe 'superset', :class do
 
         it { is_expected.to contain_class('superset::packages') }
 
-        if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
-          packages = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
-          dbdrivers = [ 'psycopg2' ]
-        elsif os_facts[:operatingsystem] == 'Ubuntu'
+        if os_facts[:os]['name'] == 'RedHat'
+          additional_python_lib = []
+          if os_facts[:os]['release']['major'] == '8'
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3-wheel']
+            dbdrivers = [ 'psycopg2' ]
+          else
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3.11-wheel', 'python3.11-devel']
+            dbdrivers = [ 'psycopg2-binary' ]
+          end
+        elsif os_facts[:os]['name'] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
-                        [ 'psycopg2' ]
-                      else
-                        [ 'psycopg2-binary' ]
-                      end
+          if os_facts[:os]['release']['major'] == '20.04'
+            dbdrivers = [ 'psycopg2' ]
+            additional_python_lib = [ 'Flask==2.2.3', 'marshmallow-enum==1.5.1']
+          else
+            dbdrivers = [ 'psycopg2-binary' ]
+            additional_python_lib = []
+          end
         end
 
         packages.each do |package|
@@ -115,6 +135,10 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        additional_python_lib.each do |lib|
+          it { is_expected.to contain_Python__Pip(lib) }
+        end
 
         dbdrivers.each do |dbdriver|
           it { is_expected.to contain_Python__Pip(dbdriver) }
@@ -138,10 +162,6 @@ describe 'superset', :class do
         it { is_expected.to contain_file('/home/superset/apache-superset/superset_config.py') }
 
         it { is_expected.to contain_class('Python') }
-
-        if os_facts[:operatingsystem] == 'RedHat'
-          it { is_expected.to contain_package('python3-wheel') }
-        end
       end
 
       context 'With manage_python set to true and the admin parameters are set' do
@@ -160,16 +180,24 @@ describe 'superset', :class do
 
         it { is_expected.to contain_class('superset::packages') }
 
-        if os_facts[:operatingsystem] == 'RedHat' # Need to find out how to check for opersatingsystemrelease
-          packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel']
-          dbdrivers = [ 'psycopg2' ]
-        elsif os_facts[:operatingsystem] == 'Ubuntu'
+        if os_facts[:os]['name'] == 'RedHat'
+          additional_python_lib = []
+          if os_facts[:os]['release']['major'] == '8'
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3-wheel']
+            dbdrivers = [ 'psycopg2' ]
+          else
+            packages  = ['gcc', 'gcc-c++', 'libffi-devel', 'cyrus-sasl-devel', 'openssl-devel', 'openldap-devel', 'postgresql-devel', 'python3.11-wheel', 'python3.11-devel']
+            dbdrivers = [ 'psycopg2-binary' ]
+          end
+        elsif os_facts[:os]['name'] == 'Ubuntu'
           packages = [ 'build-essential', 'libssl-dev', 'libffi-dev', 'libsasl2-dev', 'libldap2-dev', 'libpq-dev']
-          dbdrivers = if os_facts[:os]['release']['major'] == '20.04'
-                        [ 'psycopg2' ]
-                      else
-                        [ 'psycopg2-binary' ]
-                      end
+          if os_facts[:os]['release']['major'] == '20.04'
+            dbdrivers = [ 'psycopg2' ]
+            additional_python_lib = [ 'Flask==2.2.3', 'marshmallow-enum==1.5.1']
+          else
+            dbdrivers = [ 'psycopg2-binary' ]
+            additional_python_lib = []
+          end
         end
 
         packages.each do |package|
@@ -189,6 +217,10 @@ describe 'superset', :class do
         it { is_expected.to contain_Python__Pip('gunicorn') }
         it { is_expected.to contain_Python__Pip('pip') }
         it { is_expected.to contain_Python__Pip('wheel') }
+
+        additional_python_lib.each do |lib|
+          it { is_expected.to contain_Python__Pip(lib) }
+        end
 
         dbdrivers.each do |dbdriver|
           it { is_expected.to contain_Python__Pip(dbdriver) }
