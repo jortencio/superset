@@ -1,0 +1,16 @@
+---
+superset::python_version: '3.11'
+
+superset::package_dependencies:
+  - 'gcc'
+  - 'gcc-c++'
+  - 'libffi-devel'
+  - 'openssl-devel'
+  - 'cyrus-sasl-devel'
+  - 'openldap-devel'
+  - 'postgresql-devel'
+  - 'python3.11-wheel'
+  - 'python3.11-devel'
+
+superset::db_drivers:
+  - 'psycopg2-binary'

@@ -1,8 +1,0 @@
----
-superset::package_dependencies:
-  - 'gcc'
-  - 'gcc-c++'
-  - 'libffi-devel'
-  - 'openssl-devel'
-  - 'cyrus-sasl-devel'
-  - 'openldap-devel'
