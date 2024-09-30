@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 2.0.0
+**Features**
+* Update default superset version to 4.0.2 (And minimum Python 3.9) (Except for Ubuntu 20.04 which defaults to version 2.1.3 due to default Python 3.8 ) [#28](https://github.com/jortencio/superset/pull/28)
+* Added support for Ubuntu 22.04 [#30](https://github.com/jortencio/superset/pull/30)
+* Added support for RHEL 9 [#32](https://github.com/jortencio/superset/pull/32)
+* Tested for Puppet 8 compatibility [#33](https://github.com/jortencio/superset/pull/33)
+
+**BugFixes**
+* Resolves error related to Werkzeug version 3.0.4 compatibility with Flask version 2.x.x [#27](https://github.com/jortencio/superset/issues/27)
+
+**Known Issues**
+* Doesn't delete previous admin user when the admin user is updated in hiera
+
+
 ## Release 1.0.0
 **Features**
 * Added Ubuntu 20.04 support [#17](https://github.com/jortencio/superset/pull/17)
