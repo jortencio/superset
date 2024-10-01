@@ -1,7 +1,7 @@
 #! /opt/puppetlabs/puppet/bin/ruby
 # A task for deleting the Apache Superset virtual environment directory
 require 'facter'
-require 'fireutils'
+require 'fileutils'
 
 superset_install_dir = Facter.value('superset_installdir')
 
