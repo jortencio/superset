@@ -1,6 +1,6 @@
 {
   "name": "jortencio-superset",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Jason Ortencio",
   "summary": "Module for managing the installation and configuration of Apache Superset",
   "license": "Apache-2.0",

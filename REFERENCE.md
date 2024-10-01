@@ -21,6 +21,10 @@
 * `superset::python`: Installs and configures the Python
 * `superset::service`: Configures and manages Superset service (using Gunicorn)
 
+### Tasks
+
+* [`delete_superset_venv`](#delete_superset_venv): A task for deleting the Apache Superset virtual environment directory
+
 ## Classes
 
 ### <a name="superset"></a>`superset`
@@ -421,4 +425,12 @@ Data type: `Array[String]`
 Overide option for setting database drivers (python database driver packages) to be installed
 
 Default value: `['psycopg2']`
+
+## Tasks
+
+### <a name="delete_superset_venv"></a>`delete_superset_venv`
+
+A task for deleting the Apache Superset virtual environment directory
+
+**Supports noop?** false
 
