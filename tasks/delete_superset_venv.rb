@@ -2,7 +2,7 @@
 # A task for deleting the Apache Superset virtual environment directory
 require 'facter'
 
-superset_install_dir = Facter.value('superset_install_dir')
+superset_install_dir = Facter.value('superset_installdir')
 
 begin
   Dir.rmdir(superset_install_dir)
