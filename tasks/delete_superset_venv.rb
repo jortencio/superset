@@ -5,11 +5,11 @@ require 'fireutils'
 
 superset_install_dir = Facter.value('superset_installdir')
 
-if Dir.exists? (superset_install_dir)
-  FileUtils.rm_rf(superset_install_dir, :secure=>true)
+if Dir.exist?(superset_install_dir)
+  FileUtils.rm_rf(superset_install_dir, secure: true)
   puts "Apache Superset virtual environment directory '#{superset_install_dir}' deleted successfully!"
   exit 0
 else
-  puts "Apache Superset virtual environment directory does not exist"
+  puts 'Apache Superset virtual environment directory does not exist'
   exit 1
 end
