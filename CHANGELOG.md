@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 * Added support for Ubuntu 22.04 [#30](https://github.com/jortencio/superset/pull/30)
 * Added support for RHEL 9 [#32](https://github.com/jortencio/superset/pull/32)
 * Tested for Puppet 8 compatibility [#33](https://github.com/jortencio/superset/pull/33)
+* Add task for deleting Apache Superset virtual environment (to assist with fixing installation issues) [#34](https://github.com/jortencio/superset/pull/34)
 
 **BugFixes**
 * Resolves error related to Werkzeug version 3.0.4 compatibility with Flask version 2.x.x [#27](https://github.com/jortencio/superset/issues/27)
