@@ -10,6 +10,6 @@ if Dir.exists? (superset_install_dir)
   puts "Apache Superset virtual environment directory '#{superset_install_dir}' deleted successfully!"
   exit 0
 else
-  puts "Apache Superset virtual environment directory '#{e.message}' does not exist"
+  puts "Apache Superset virtual environment directory does not exist"
   exit 1
 end
